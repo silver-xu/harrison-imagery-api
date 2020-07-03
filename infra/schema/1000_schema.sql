@@ -18,9 +18,16 @@ CREATE TABLE images(
   FOREIGN KEY (status_code) REFERENCES image_status(image_status_code)
 );
 
+CREATE TABLE label_status(
+  label_status_code NVARCHAR(255) PRIMARY KEY,
+  description NVARCHAR(255) NULL
+);
+
 CREATE TABLE labels(
   label_id INT AUTO_INCREMENT PRIMARY KEY,
-  label NVARCHAR(255) NOT NULL
+  label NVARCHAR(255) NOT NULL,
+  status_code NVARCHAR(255) NOT NULL,
+  FOREIGN KEY (status_code) REFERENCES label_status(label_status_code)
 );
 
 CREATE TABLE image_label(
