@@ -1,8 +1,8 @@
 import { Image } from '../dto/image';
 import { Labelling } from '../dto/imageLabel';
-import { AddImageModel, EditImageModel, GetImageWithLabelsModel } from '../domains/imageModels';
+import { AddImageModel, EditImageModel, GetImageWithLabelsModel, GetImageModel } from '../domains/imageModels';
 
-export const mapToGetImageModel = (image: Image) => image;
+export const mapToGetImageModel = (image: Image): GetImageModel => image;
 
 export const mapToGetImageWithLabelsModel = (image: Image, labellings: Labelling[]): GetImageWithLabelsModel => {
   return {

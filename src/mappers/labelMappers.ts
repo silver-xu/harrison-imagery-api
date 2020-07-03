@@ -2,9 +2,9 @@ import { Image } from '../dto/image';
 import { AddImageModel, EditImageModel } from '../domains/imageModels';
 import { Label } from '../dto/label';
 import { LabelledImage } from '../dto/imageLabel/labelledImage';
-import { GetLabelledImagesModel } from '../domains/labelModels';
+import { GetLabelledImagesModel, GetLabelModel } from '../domains/labelModels';
 
-export const mapToGetLabelModel = (label: Label) => label;
+export const mapToGetLabelModel = (label: Label): GetLabelModel => label;
 
 export const mapToGetLabelImages = (labelledImages: LabelledImage[]): GetLabelledImagesModel => {
   const distinctLabelledImages = labelledImages.filter(

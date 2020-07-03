@@ -31,12 +31,12 @@ export const getImageById = async (imageId: number): Promise<GetImageWithLabelsM
   return mapToGetImageWithLabelsModel(image, labellings);
 };
 
-export const addImage = async (imageModel: AddImageModel) => {
+export const addImage = async (imageModel: AddImageModel): Promise<void> => {
   const image = mapFromAddImageModel(imageModel);
   await imageRepository.add(image);
 };
 
-export const deleteImage = async (imageId: number) => {
+export const deleteImage = async (imageId: number): Promise<void> => {
   const image = await imageRepository.getById(imageId);
 
   if (!image || image.statusCode === ImageStatusCodes.Deleted) {
@@ -46,7 +46,7 @@ export const deleteImage = async (imageId: number) => {
   await imageRepository.delete(imageId);
 };
 
-export const updateImage = async (imageModel: EditImageModel) => {
+export const updateImage = async (imageModel: EditImageModel): Promise<void> => {
   const image = await imageRepository.getById(imageModel.imageId);
 
   if (!image || image.statusCode === ImageStatusCodes.Deleted) {
