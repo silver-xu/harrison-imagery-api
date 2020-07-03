@@ -3,6 +3,7 @@ import { Image } from '../../../dto/image';
 import { ImageLabel, Labelling } from '../../../dto/imageLabel';
 import { BaseMysqlRepository } from './baseMysqlRepository';
 import { RowDataPacket } from 'mysql2';
+import { LabelledImage } from '../../../dto/imageLabel/labelledImage';
 
 export class MysqlImageLabelRepository extends BaseMysqlRepository implements ImageLabelRepository {
   async add(imageLabel: ImageLabel) {
@@ -40,13 +41,18 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
     }));
   }
 
-  async getImagesByLabelId(labelId: number): Promise<Image[]> {
+  async getLabelledImagesByLabelId(labelId: number): Promise<LabelledImage[]> {
     const [rows] = (await this.pool.query(
       `SELECT images.image_id,
               images.image_path,
               images.width,
               images.height,
-              images.status_code
+              images.status_code,
+              image_label.label_id,
+              image_label.x AS label_x,
+              image_label.y AS label_y,
+              image_label.width AS label_width,
+              image_label.height as label_height
       FROM image_label      
       INNER JOIN images ON image_label.image_id = images.image_id
       WHERE image_label.label_id = ?`,
@@ -59,6 +65,11 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
       width: row['width'],
       height: row['height'],
       statusCode: row['status_code'],
+      labelId: row['label_id'],
+      labelX: row['label_x'],
+      labelY: row['label_y'],
+      labelWidth: row['label_width'],
+      labelHeight: row['label_height'],
     }));
   }
 }

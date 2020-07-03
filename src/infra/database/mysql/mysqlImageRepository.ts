@@ -35,7 +35,7 @@ export class MysqlImageRepository extends BaseMysqlRepository implements ImageRe
   }
 
   async delete(imageId: number) {
-    await this.pool.execute('DELETE FROM images WHERE image_id = ?', [imageId]);
+    await this.pool.execute("UPDATE images SET status_code = 'Deleted' WHERE image_id = ?", [imageId]);
   }
 
   async update(image: Image) {
