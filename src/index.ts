@@ -1,3 +1,5 @@
-export const greet = (name: string): string => `Hello ${name}!`;
+import { endPool, labelRepository, imageLabelRepository, authTokenRepository } from './infra/database';
 
-console.log(greet("World"));
+(async () => {
+  console.log('done');
+})();

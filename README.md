@@ -1,27 +1,21 @@
-# Node.js Typescript Boilerplate [![Build Status](https://travis-ci.org/silver-xu/ts-boilerplate.svg?branch=master)](https://travis-ci.org/silver-xu/ts-boilerplate) [![codecov](https://codecov.io/gh/silver-xu/ts-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/silver-xu/ts-boilerplate) [![greenkeeper](https://badges.greenkeeper.io/silver-xu/ts-boilerplate.svg?style=flat)](https://badges.greenkeeper.io/silver-xu/ts-boilerplate.svg?style=flat)
+# Harrison.AI API [![Build Status](https://travis-ci.org/silver-xu/harrison-api.svg?branch=master)](https://travis-ci.org/silver-xu/harrison-api) [![codecov](https://codecov.io/gh/silver-xu/harrison-api/branch/master/graph/badge.svg)](https://codecov.io/gh/silver-xu/harrison-api) [![greenkeeper](https://badges.greenkeeper.io/silver-xu/harrison-api.svg?style=flat)](https://badges.greenkeeper.io/silver-xu/harrison-api.svg?style=flat)
 
-> Typescript boilerplate powered by ESlint, Prettier and Husky.
+> Harrison.AI API Project
 
-## Summary
+## Pre-requisites
 
-> This repo is built to start Typescript projets quickly without missing the essential development tools and build pipelines.
-
-> Please feel free to fork and use as your own project template.
-
-## Features
-
-- Typescript support
-- Linting with ESLint
-- Prettier Support
-- Travis CI Integration
-- Codecov Integration
-- Jest Integration
-- Linting check @ pre-commit
+Prior to start the project locally, docker must be installed in order to start the local mysql database server.
 
 ## Install all dependencies
 
 ```
 yarn install
+```
+
+## Start local Mysql Database Server
+
+```
+yarn start:db
 ```
 
 ## Build

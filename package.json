@@ -4,10 +4,13 @@
   "description": "Boilerplate for typescript projects powered by eslint and prettier",
   "main": "index.js",
   "scripts": {
-    "start": "yarn build && node dist/index",
+    "start": "yarn build && env NODE_ENV=dev node dist/index",
+    "start:db": "yarn build:db && sudo docker run -p 3306:3306 --name harrison-mysql -e MYSQL_ROOT_PASSWORD=harrison harrison-mysql",
     "build": "tsc",
+    "build:db": "sudo docker build -t harrison-mysql .",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix",
+    "migrate:db": "",
     "test": "jest",
     "codecov": "codecov"
   },
@@ -15,6 +18,8 @@
   "license": "AGPL-3.0-only",
   "devDependencies": {
     "@types/jest": "^25.1.0",
+    "@types/mysql2": "types/mysql2",
+    "@types/node": "^14.0.14",
     "@typescript-eslint/eslint-plugin": "^2.15.0",
     "@typescript-eslint/parser": "^2.15.0",
     "codecov": "^3.6.5",
@@ -28,5 +33,8 @@
     "hooks": {
       "pre-commit": "yarn lint"
     }
+  },
+  "dependencies": {
+    "mysql2": "^2.1.0"
   }
 }
