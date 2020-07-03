@@ -1,8 +1,8 @@
 import { Image } from '../../dto/image';
-import { Label } from '../../dto/label';
 import { ImageSearchCriteria } from '../../dto/image/imageSearchCriteria';
 
 export interface ImageRepository {
+  getById(imageId: number): Promise<Image | undefined>;
   add(image: Image);
   delete(imageId: number);
   update(image: Image);
