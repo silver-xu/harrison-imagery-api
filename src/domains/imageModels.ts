@@ -2,14 +2,14 @@ import { Image } from '../dto/image';
 import { Labelling } from '../dto/imageLabel';
 
 export interface GetImageModel extends Image {}
-export interface GetImageWithLabelsModel extends GetImageModel {
-  imageLabels: ImageLabelModel[];
+export interface GetImageLabellingsModel extends GetImageModel {
+  imageLabellings: ImageLabellingModel[];
 }
 
 export interface AddImageModel extends Image {}
 export interface EditImageModel extends Image {}
 
-export interface ImageLabelModel extends Labelling {
+export interface ImageLabellingModel extends Labelling {
   label: string;
 }
 
@@ -25,5 +25,5 @@ export interface ImageModel {
   width: number;
   height: number;
   statusCode: string;
-  imageLabels: ImageLabelModel[];
+  imageLabels: ImageLabellingModel[];
 }

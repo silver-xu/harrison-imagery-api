@@ -1,11 +1,11 @@
-import { AddImageModel, EditImageModel, GetImageModel, GetImageWithLabelsModel } from '../domains/imageModels';
+import { AddImageModel, EditImageModel, GetImageLabellingsModel, GetImageModel } from '../domains/imageModels';
 import { NotFoundError } from '../errors/notFound';
 import { imageLabelRepository, imageRepository } from '../infra/database';
 import {
   mapFromAddImageModel,
   mapFromUpdateImageModel,
   mapToGetImageModel,
-  mapToGetImageWithLabelsModel,
+  mapToGetLabelledImagesModel,
 } from '../mappers/imageMappers';
 
 export const getImage = async (imageId: number): Promise<GetImageModel> => {
@@ -18,7 +18,7 @@ export const getImage = async (imageId: number): Promise<GetImageModel> => {
   return mapToGetImageModel(image);
 };
 
-export const getImageById = async (imageId: number): Promise<GetImageWithLabelsModel> => {
+export const getImageLabellings = async (imageId: number): Promise<GetImageLabellingsModel> => {
   const image = await imageRepository.getById(imageId);
 
   if (!image) {
@@ -27,7 +27,7 @@ export const getImageById = async (imageId: number): Promise<GetImageWithLabelsM
 
   const labellings = await imageLabelRepository.getLabellingsByImageId(imageId);
 
-  return mapToGetImageWithLabelsModel(image, labellings);
+  return mapToGetLabelledImagesModel(image, labellings);
 };
 
 export const addImage = async (imageModel: AddImageModel): Promise<void> => {
