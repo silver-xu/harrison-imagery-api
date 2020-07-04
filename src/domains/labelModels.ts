@@ -18,3 +18,8 @@ export interface LabelPosition {
   width: number;
   height: number;
 }
+
+export enum LabelStatusCodes {
+  InUse = 'InUse',
+  Removed = 'Removed',
+}
