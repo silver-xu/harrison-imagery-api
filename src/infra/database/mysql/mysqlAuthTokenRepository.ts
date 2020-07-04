@@ -5,10 +5,14 @@ import { AuthTokenRepository } from '../authTokenRepository';
 import { BaseMysqlRepository } from './baseMysqlRepository';
 
 export class MysqlAuthTokenRepository extends BaseMysqlRepository implements AuthTokenRepository {
-  async getByToken(token: string): Promise<AuthToken> {
+  async getByToken(token: string): Promise<AuthToken | undefined> {
     const [rows] = (await this.pool.query('SELECT token_id, token, expiry_date FROM auth_tokens WHERE token = ?', [
       token,
     ])) as RowDataPacket[];
+
+    if (rows.length === 0) {
+      return undefined;
+    }
 
     return rows.map((row) => ({
       tokenId: row['token_id'],

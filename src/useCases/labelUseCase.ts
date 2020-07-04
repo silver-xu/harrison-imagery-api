@@ -45,7 +45,7 @@ export const deleteLabel = async (labelId: number): Promise<void> => {
   await labelRepository.delete(labelId);
 };
 
-export const updateImage = async (labelModel: UpdateLabelModel): Promise<void> => {
+export const updateLabel = async (labelModel: UpdateLabelModel): Promise<void> => {
   const label = await labelRepository.getById(labelModel.labelId);
 
   if (!label) {

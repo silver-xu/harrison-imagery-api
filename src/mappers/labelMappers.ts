@@ -1,4 +1,10 @@
-import { AddLabelModel, GetLabelledImagesModel, GetLabelModel, UpdateLabelModel } from '../domains/labelModels';
+import {
+  AddLabelModel,
+  GetLabelledImagesModel,
+  GetLabelModel,
+  LabelStatusCodes,
+  UpdateLabelModel,
+} from '../domains/labelModels';
 import { LabelledImage } from '../dto/imageLabel/labelledImage';
 import { Label } from '../dto/label';
 
@@ -31,6 +37,10 @@ export const mapToGetLabelImages = (labelledImages: LabelledImage[]): GetLabelle
   };
 };
 
-export const mapFromAddLabelModel = (addLabelModel: AddLabelModel): Label => addLabelModel;
+export const mapFromAddLabelModel = (addLabelModel: AddLabelModel): Label => ({
+  ...addLabelModel,
+  labelId: 0,
+  statusCode: LabelStatusCodes.InUse,
+});
 
 export const mapFromUpdateLabelModel = (updateLabelModel: UpdateLabelModel): Label => updateLabelModel;

@@ -1,29 +1,27 @@
 import { Image } from '../dto/image';
-import { Labelling } from '../dto/imageLabel';
+import { Label } from '../dto/label';
+import { LabelPosition } from './common';
 
 export interface GetImageModel extends Image {}
-export interface GetImageLabellingsModel extends GetImageModel {
-  imageLabellings: ImageLabellingModel[];
+export interface GetLabellingsModel {
+  labellings: LabellingModel[];
 }
 
-export interface AddImageModel extends Image {}
-export interface EditImageModel extends Image {}
+export interface AddImageModel {
+  imagePath: string;
+  width: number;
+  height: number;
+}
 
-export interface ImageLabellingModel extends Labelling {
-  label: string;
+export interface UpdateImageModel extends Image {}
+
+export interface LabellingModel {
+  label: Label;
+  labelPositions: LabelPosition[];
 }
 
 export enum ImageStatusCodes {
   Created = 'Created',
   Labelled = 'Labelled',
   Deleted = 'Deleted',
-}
-
-export interface ImageModel {
-  imageId: number;
-  imagePath: string;
-  width: number;
-  height: number;
-  statusCode: string;
-  imageLabels: ImageLabellingModel[];
 }

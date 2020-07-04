@@ -1,5 +1,5 @@
 import { AuthToken } from '../../dto/auth';
 
 export interface AuthTokenRepository {
-  getByToken(token: string): Promise<AuthToken>;
+  getByToken(token: string): Promise<AuthToken | undefined>;
 }

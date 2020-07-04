@@ -9,12 +9,12 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
   async getById(imageLabelId: number): Promise<ImageLabel> {
     const [rows] = (await this.pool.query(
       `SELECT image_label_id, 
-              image_id, 
-              label_id, 
-              x, 
-              y, 
-              width, 
-              height 
+              image_label.image_id, 
+              image_label.label_id, 
+              image_label.x, 
+              image_label.y, 
+              image_label.width, 
+              image_label.height 
         FROM image_label 
         INNER JOIN images
           ON image_label.image_id = images.image_id

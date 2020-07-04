@@ -9,7 +9,7 @@ export class MysqlLabelRepository extends BaseMysqlRepository implements LabelRe
     const [
       rows,
     ] = (await this.pool.query(
-      "SELECT label_id, label, status_code FROM labels WHERE label_id = ?  ND status_code <> 'Deleted'",
+      "SELECT label_id, label, status_code FROM labels WHERE label_id = ? AND status_code <> 'Deleted'",
       [labelId],
     )) as RowDataPacket[];
 
@@ -27,7 +27,7 @@ export class MysqlLabelRepository extends BaseMysqlRepository implements LabelRe
   }
 
   async add(label: Label): Promise<void> {
-    await this.pool.execute('INSERT INTO labels (label) VALUES (?)', [label.label]);
+    await this.pool.execute('INSERT INTO labels (label, status_code) VALUES (?, ?)', [label.label, label.statusCode]);
   }
 
   async update(label: Label): Promise<void> {
@@ -35,6 +35,6 @@ export class MysqlLabelRepository extends BaseMysqlRepository implements LabelRe
   }
 
   async delete(labelId: number): Promise<void> {
-    await this.pool.execute('UPDATE labels SET status_code = ? WHERE label_id = ?', ['Removed', labelId]);
+    await this.pool.execute('UPDATE labels SET status_code = ? WHERE label_id = ?', ['Deleted', labelId]);
   }
 }
