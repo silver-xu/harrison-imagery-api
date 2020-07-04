@@ -1,4 +1,4 @@
-import { ImageLabel } from '../dto/imageLabel';
 import { AddImageLabelModel } from '../domains/imageLabelModels';
+import { ImageLabel } from '../dto/imageLabel';
 
 export const mapFromAddImageLabelModel = (addImageLabelModel: AddImageLabelModel): ImageLabel => addImageLabelModel;

@@ -1,8 +1,8 @@
-import { ImageLabelRepository } from '../imageLabelRepository';
 import { ImageLabel, Labelling } from '../../../dto/imageLabel';
 import { BaseMysqlRepository } from './baseMysqlRepository';
-import { RowDataPacket } from 'mysql2';
+import { ImageLabelRepository } from '../imageLabelRepository';
 import { LabelledImage } from '../../../dto/imageLabel/labelledImage';
+import { RowDataPacket } from 'mysql2';
 
 export class MysqlImageLabelRepository extends BaseMysqlRepository implements ImageLabelRepository {
   async getById(imageLabelId: number) {

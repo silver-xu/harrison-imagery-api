@@ -1,5 +1,5 @@
-import { AuthTokenRepository } from '../authTokenRepository';
 import { AuthToken } from '../../../dto/auth';
+import { AuthTokenRepository } from '../authTokenRepository';
 import { BaseMysqlRepository } from './baseMysqlRepository';
 import { RowDataPacket } from 'mysql2/promise';
 

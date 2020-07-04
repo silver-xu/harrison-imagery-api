@@ -1,12 +1,12 @@
-import { GetImageModel, AddImageModel, EditImageModel, GetImageWithLabelsModel } from '../domains/imageModels';
-import { imageRepository, imageLabelRepository } from '../infra/database';
+import { AddImageModel, EditImageModel, GetImageModel, GetImageWithLabelsModel } from '../domains/imageModels';
+import { NotFoundError } from '../errors/notFound';
+import { imageLabelRepository, imageRepository } from '../infra/database';
 import {
   mapFromAddImageModel,
-  mapToGetImageWithLabelsModel,
-  mapToGetImageModel,
   mapFromUpdateImageModel,
+  mapToGetImageModel,
+  mapToGetImageWithLabelsModel,
 } from '../mappers/imageMappers';
-import { NotFoundError } from '../errors/notFound';
 
 export const getImage = async (imageId: number): Promise<GetImageModel> => {
   const image = await imageRepository.getById(imageId);

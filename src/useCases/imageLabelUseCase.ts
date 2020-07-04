@@ -1,7 +1,7 @@
 import { AddImageLabelModel } from '../domains/imageLabelModels';
-import { mapFromAddImageLabelModel } from '../mappers/imageLabelMappers';
-import { imageLabelRepository } from '../infra/database';
 import { NotFoundError } from '../errors/notFound';
+import { imageLabelRepository } from '../infra/database';
+import { mapFromAddImageLabelModel } from '../mappers/imageLabelMappers';
 
 export const addImageLabel = async (addImageLabelModel: AddImageLabelModel): Promise<void> => {
   const imageLabel = mapFromAddImageLabelModel(addImageLabelModel);

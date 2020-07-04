@@ -1,6 +1,6 @@
-import { Label } from '../dto/label';
+import { AddLabelModel, GetLabelledImagesModel, GetLabelModel, UpdateLabelModel } from '../domains/labelModels';
 import { LabelledImage } from '../dto/imageLabel/labelledImage';
-import { GetLabelledImagesModel, GetLabelModel, AddLabelModel, UpdateLabelModel } from '../domains/labelModels';
+import { Label } from '../dto/label';
 
 export const mapToGetLabelModel = (label: Label): GetLabelModel => label;
 

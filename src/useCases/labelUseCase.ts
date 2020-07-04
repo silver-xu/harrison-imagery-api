@@ -1,12 +1,12 @@
-import { GetLabelModel, GetLabelledImagesModel, UpdateLabelModel, AddLabelModel } from '../domains/labelModels';
-import { labelRepository, imageLabelRepository } from '../infra/database';
-import {
-  mapToGetLabelModel,
-  mapToGetLabelImages,
-  mapFromUpdateLabelModel,
-  mapFromAddLabelModel,
-} from '../mappers/labelMappers';
+import { AddLabelModel, GetLabelledImagesModel, GetLabelModel, UpdateLabelModel } from '../domains/labelModels';
 import { NotFoundError } from '../errors/notFound';
+import { imageLabelRepository, labelRepository } from '../infra/database';
+import {
+  mapFromAddLabelModel,
+  mapFromUpdateLabelModel,
+  mapToGetLabelImages,
+  mapToGetLabelModel,
+} from '../mappers/labelMappers';
 
 export const getLabel = async (labelId: number): Promise<GetLabelModel> => {
   const label = await labelRepository.getById(labelId);

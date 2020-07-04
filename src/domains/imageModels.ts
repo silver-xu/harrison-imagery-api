@@ -1,5 +1,5 @@
-import { Labelling } from '../dto/imageLabel';
 import { Image } from '../dto/image';
+import { Labelling } from '../dto/imageLabel';
 
 export interface GetImageModel extends Image {}
 export interface GetImageWithLabelsModel extends GetImageModel {
@@ -9,7 +9,9 @@ export interface GetImageWithLabelsModel extends GetImageModel {
 export interface AddImageModel extends Image {}
 export interface EditImageModel extends Image {}
 
-export interface ImageLabelModel extends Labelling {}
+export interface ImageLabelModel extends Labelling {
+  label: string;
+}
 
 export enum ImageStatusCodes {
   Created = 'Created',
@@ -24,13 +26,4 @@ export interface ImageModel {
   height: number;
   statusCode: string;
   imageLabels: ImageLabelModel[];
-}
-
-export interface ImageLabelModel {
-  labelId: number;
-  label: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
 }

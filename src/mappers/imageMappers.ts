@@ -1,11 +1,11 @@
-import { Image } from '../dto/image';
-import { Labelling } from '../dto/imageLabel';
 import {
   AddImageModel,
   EditImageModel as UpdateImageModel,
-  GetImageWithLabelsModel,
   GetImageModel,
+  GetImageWithLabelsModel,
 } from '../domains/imageModels';
+import { Image } from '../dto/image';
+import { Labelling } from '../dto/imageLabel';
 
 export const mapToGetImageModel = (image: Image): GetImageModel => image;
 
