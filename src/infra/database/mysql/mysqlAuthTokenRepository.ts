@@ -14,10 +14,10 @@ export class MysqlAuthTokenRepository extends BaseMysqlRepository implements Aut
       return undefined;
     }
 
-    return rows.map((row) => ({
-      tokenId: row['token_id'],
-      token: row['token'],
-      expiryDate: row['expiry_date'],
-    }));
+    return {
+      tokenid: rows[0]['token_id'],
+      token: rows[0]['token'],
+      expiryDate: rows[0]['expiry_date'],
+    };
   }
 }

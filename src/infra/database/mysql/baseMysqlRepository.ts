@@ -1,9 +1,9 @@
-import { Pool } from 'mysql2/promise';
+import { ConnectionPool } from './connectionPool';
 
 export abstract class BaseMysqlRepository {
-  protected pool: Pool;
+  protected pool: ConnectionPool;
 
-  constructor(pool: Pool) {
+  constructor(pool: ConnectionPool) {
     this.pool = pool;
   }
 }
