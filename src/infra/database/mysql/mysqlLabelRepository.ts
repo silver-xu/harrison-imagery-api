@@ -21,7 +21,16 @@ export class MysqlLabelRepository extends BaseMysqlRepository implements LabelRe
       statusCode: status_code,
     };
   }
+
   async add(label: Label) {
     await this.pool.execute('INSERT INTO labels (label) VALUES (?)', [label.label]);
+  }
+
+  async update(label: Label) {
+    await this.pool.execute('UPDATE labels SET label = ? WHERE label_id = ?', [label.label, label.labelId]);
+  }
+
+  async delete(labelId: number) {
+    await this.pool.execute('UPDATE labels SET status_code = ? WHERE label_id = ?', ['Removed', labelId]);
   }
 }

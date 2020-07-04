@@ -6,7 +6,12 @@ import {
   ImageStatusCodes,
 } from '../domains/imageModels';
 import { imageRepository, imageLabelRepository } from '../infra/database';
-import { mapFromAddImageModel, mapToGetImageWithLabelsModel, mapToGetImageModel } from '../mappers/imageMappers';
+import {
+  mapFromAddImageModel,
+  mapToGetImageWithLabelsModel,
+  mapToGetImageModel,
+  mapFromUpdateImageModel,
+} from '../mappers/imageMappers';
 import { NotFoundError } from '../errors/notFound';
 
 export const getImage = async (imageId: number): Promise<GetImageModel> => {
@@ -53,5 +58,6 @@ export const updateImage = async (imageModel: EditImageModel): Promise<void> => 
     throw new NotFoundError('Image was not found');
   }
 
-  await imageRepository.update(imageModel);
+  const updatedImage = mapFromUpdateImageModel(imageModel);
+  await imageRepository.update(updatedImage);
 };

@@ -3,6 +3,9 @@ import { GetImageModel } from './imageModels';
 
 export interface GetLabelModel extends Label {}
 
+export interface AddLabelModel extends Label {}
+export interface UpdateLabelModel extends Label {}
+
 export interface GetLabelledImagesModel {
   images: LabeledImageModel[];
 }
@@ -21,5 +24,5 @@ export interface LabelPosition {
 
 export enum LabelStatusCodes {
   InUse = 'InUse',
-  Removed = 'Removed',
+  Deleted = 'Deleted',
 }

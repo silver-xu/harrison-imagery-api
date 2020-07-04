@@ -1,6 +1,11 @@
 import { Image } from '../dto/image';
 import { Labelling } from '../dto/imageLabel';
-import { AddImageModel, EditImageModel, GetImageWithLabelsModel, GetImageModel } from '../domains/imageModels';
+import {
+  AddImageModel,
+  EditImageModel as UpdateImageModel,
+  GetImageWithLabelsModel,
+  GetImageModel,
+} from '../domains/imageModels';
 
 export const mapToGetImageModel = (image: Image): GetImageModel => image;
 
@@ -15,4 +20,4 @@ export const mapToGetImageWithLabelsModel = (image: Image, labellings: Labelling
 
 export const mapFromAddImageModel = (addImageModel: AddImageModel): Image => addImageModel;
 
-export const mapFromEditImageModel = (editImageModel: EditImageModel): Image => editImageModel;
+export const mapFromUpdateImageModel = (updateImageModel: UpdateImageModel): Image => updateImageModel;

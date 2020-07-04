@@ -1,8 +1,6 @@
-import { Image } from '../dto/image';
-import { AddImageModel, EditImageModel } from '../domains/imageModels';
 import { Label } from '../dto/label';
 import { LabelledImage } from '../dto/imageLabel/labelledImage';
-import { GetLabelledImagesModel, GetLabelModel } from '../domains/labelModels';
+import { GetLabelledImagesModel, GetLabelModel, AddLabelModel, UpdateLabelModel } from '../domains/labelModels';
 
 export const mapToGetLabelModel = (label: Label): GetLabelModel => label;
 
@@ -33,6 +31,6 @@ export const mapToGetLabelImages = (labelledImages: LabelledImage[]): GetLabelle
   };
 };
 
-export const mapFromAddImageModel = (addImageModel: AddImageModel): Image => addImageModel;
+export const mapFromAddLabelModel = (addLabelModel: AddLabelModel): Label => addLabelModel;
 
-export const mapFromEditImageModel = (editImageModel: EditImageModel): Image => editImageModel;
+export const mapFromUpdateLabelModel = (updateLabelModel: UpdateLabelModel): Label => updateLabelModel;
