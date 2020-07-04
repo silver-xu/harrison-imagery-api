@@ -1,10 +1,4 @@
-import {
-  GetImageModel,
-  AddImageModel,
-  EditImageModel,
-  GetImageWithLabelsModel,
-  ImageStatusCodes,
-} from '../domains/imageModels';
+import { GetImageModel, AddImageModel, EditImageModel, GetImageWithLabelsModel } from '../domains/imageModels';
 import { imageRepository, imageLabelRepository } from '../infra/database';
 import {
   mapFromAddImageModel,
@@ -17,7 +11,7 @@ import { NotFoundError } from '../errors/notFound';
 export const getImage = async (imageId: number): Promise<GetImageModel> => {
   const image = await imageRepository.getById(imageId);
 
-  if (!image || image.statusCode === ImageStatusCodes.Deleted) {
+  if (!image) {
     throw new NotFoundError('Image was not found');
   }
 
@@ -27,7 +21,7 @@ export const getImage = async (imageId: number): Promise<GetImageModel> => {
 export const getImageById = async (imageId: number): Promise<GetImageWithLabelsModel> => {
   const image = await imageRepository.getById(imageId);
 
-  if (!image || image.statusCode === ImageStatusCodes.Deleted) {
+  if (!image) {
     throw new NotFoundError('Image was not found');
   }
 
@@ -44,7 +38,7 @@ export const addImage = async (imageModel: AddImageModel): Promise<void> => {
 export const deleteImage = async (imageId: number): Promise<void> => {
   const image = await imageRepository.getById(imageId);
 
-  if (!image || image.statusCode === ImageStatusCodes.Deleted) {
+  if (!image) {
     throw new NotFoundError('Image was not found');
   }
 
@@ -54,7 +48,7 @@ export const deleteImage = async (imageId: number): Promise<void> => {
 export const updateImage = async (imageModel: EditImageModel): Promise<void> => {
   const image = await imageRepository.getById(imageModel.imageId);
 
-  if (!image || image.statusCode === ImageStatusCodes.Deleted) {
+  if (!image) {
     throw new NotFoundError('Image was not found');
   }
 

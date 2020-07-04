@@ -1,10 +1,4 @@
-import {
-  GetLabelModel,
-  GetLabelledImagesModel,
-  LabelStatusCodes,
-  UpdateLabelModel,
-  AddLabelModel,
-} from '../domains/labelModels';
+import { GetLabelModel, GetLabelledImagesModel, UpdateLabelModel, AddLabelModel } from '../domains/labelModels';
 import { labelRepository, imageLabelRepository } from '../infra/database';
 import {
   mapToGetLabelModel,
@@ -17,7 +11,7 @@ import { NotFoundError } from '../errors/notFound';
 export const getLabel = async (labelId: number): Promise<GetLabelModel> => {
   const label = await labelRepository.getById(labelId);
 
-  if (!label || label.statusCode === LabelStatusCodes.Deleted) {
+  if (!label) {
     throw new NotFoundError('Label was not found');
   }
 
@@ -27,7 +21,7 @@ export const getLabel = async (labelId: number): Promise<GetLabelModel> => {
 export const getLabelledImages = async (labelId: number): Promise<GetLabelledImagesModel> => {
   const label = await labelRepository.getById(labelId);
 
-  if (!label || label.statusCode === LabelStatusCodes.Deleted) {
+  if (!label) {
     throw new NotFoundError('Label was not found');
   }
 
@@ -44,7 +38,7 @@ export const addLabel = async (labelModel: AddLabelModel): Promise<void> => {
 export const deleteLabel = async (labelId: number): Promise<void> => {
   const label = await labelRepository.getById(labelId);
 
-  if (!label || label.statusCode === LabelStatusCodes.Deleted) {
+  if (!label) {
     throw new NotFoundError('Label was not found');
   }
 
@@ -54,7 +48,7 @@ export const deleteLabel = async (labelId: number): Promise<void> => {
 export const updateImage = async (labelModel: UpdateLabelModel): Promise<void> => {
   const label = await labelRepository.getById(labelModel.labelId);
 
-  if (!label || label.statusCode === LabelStatusCodes.Deleted) {
+  if (!label) {
     throw new NotFoundError('Label was not found');
   }
 

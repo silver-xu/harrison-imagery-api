@@ -5,9 +5,12 @@ import { RowDataPacket } from 'mysql2/promise';
 
 export class MysqlLabelRepository extends BaseMysqlRepository implements LabelRepository {
   async getById(labelId: number): Promise<Label> {
-    const [rows] = (await this.pool.query('SELECT label_id, label, status_code FROM labels WHERE label_id = ?', [
-      labelId,
-    ])) as RowDataPacket[];
+    const [
+      rows,
+    ] = (await this.pool.query(
+      "SELECT label_id, label, status_code FROM labels WHERE label_id = ?  ND status_code <> 'Deleted'",
+      [labelId],
+    )) as RowDataPacket[];
 
     if (rows.length === 0) {
       return undefined;

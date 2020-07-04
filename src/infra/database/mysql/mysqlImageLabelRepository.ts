@@ -6,10 +6,22 @@ import { LabelledImage } from '../../../dto/imageLabel/labelledImage';
 
 export class MysqlImageLabelRepository extends BaseMysqlRepository implements ImageLabelRepository {
   async getById(imageLabelId: number) {
-    const [
-      rows,
-    ] = (await this.pool.query(
-      'SELECT image_label_id, image_id, label_id, x, y, width, height FROM image_label WHERE image_label_id = ?',
+    const [rows] = (await this.pool.query(
+      `SELECT image_label_id, 
+              image_id, 
+              label_id, 
+              x, 
+              y, 
+              width, 
+              height 
+        FROM image_label 
+        INNER JOIN images
+          ON image_label.image_id = images.image_id
+        INNER JOIN labels
+          ON  image_label.label_id = labels.label_id
+        WHERE image_label_id = ? 
+          AND images.status_code <> 'Deleted' 
+          AND labels.status_code <> 'Deleted'`,
       [imageLabelId],
     )) as RowDataPacket[];
 
@@ -51,8 +63,13 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
               image_label.width, 
               image_label.height 
       FROM image_label 
-      INNER JOIN labels ON image_label.label_id = labels.label_id 
-      WHERE image_label.image_id = ?`,
+      INNER JOIN images
+        ON image_label.image_id = images.image_id
+      INNER JOIN labels
+        ON  image_label.label_id = labels.label_id
+      WHERE images.image_id = ? 
+        AND images.status_code <> 'Deleted'
+        AND labels.status_code <> 'Deleted'`,
       [imageId],
     )) as RowDataPacket[];
 
@@ -81,8 +98,13 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
               image_label.width AS label_width,
               image_label.height as label_height
       FROM image_label      
-      INNER JOIN images ON image_label.image_id = images.image_id
-      WHERE image_label.label_id = ?`,
+      INNER JOIN images
+        ON image_label.image_id = images.image_id
+      INNER JOIN labels
+        ON  image_label.label_id = labels.label_id
+      WHERE labels.label_id = ?
+        AND images.status_code <> 'Deleted'
+        AND labels.status_code <> 'Deleted'`,
       [labelId],
     )) as RowDataPacket[];
 

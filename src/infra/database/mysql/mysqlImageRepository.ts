@@ -9,7 +9,7 @@ export class MysqlImageRepository extends BaseMysqlRepository implements ImageRe
     const [
       rows,
     ] = (await this.pool.query(
-      'SELECT image_id, image_path, width, height, status_code FROM images WHERE image_id = ?',
+      "SELECT image_id, image_path, width, height, status_code FROM images WHERE image_id = ? AND status_code <> 'Deleted'",
       [imageId],
     )) as RowDataPacket[];
 
