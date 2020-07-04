@@ -6,9 +6,12 @@ import { RowDataPacket } from 'mysql2/promise';
 
 export class MysqlImageRepository extends BaseMysqlRepository implements ImageRepository {
   async getById(imageId: number): Promise<Image | undefined> {
-    const [rows] = (await this.pool.query('SELECT image_id, image_path, width, height, status_code FROM images', [
-      imageId,
-    ])) as RowDataPacket[];
+    const [
+      rows,
+    ] = (await this.pool.query(
+      'SELECT image_id, image_path, width, height, status_code FROM images WHERE image_id = ?',
+      [imageId],
+    )) as RowDataPacket[];
 
     if (rows.length === 0) {
       return undefined;
