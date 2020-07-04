@@ -1,7 +1,8 @@
-import { LabelRepository } from '../labelRepository';
-import { Label } from '../../../dto/label';
-import { BaseMysqlRepository } from './baseMysqlRepository';
 import { RowDataPacket } from 'mysql2/promise';
+
+import { Label } from '../../../dto/label';
+import { LabelRepository } from '../labelRepository';
+import { BaseMysqlRepository } from './baseMysqlRepository';
 
 export class MysqlLabelRepository extends BaseMysqlRepository implements LabelRepository {
   async getById(labelId: number): Promise<Label> {
@@ -25,15 +26,15 @@ export class MysqlLabelRepository extends BaseMysqlRepository implements LabelRe
     };
   }
 
-  async add(label: Label) {
+  async add(label: Label): Promise<void> {
     await this.pool.execute('INSERT INTO labels (label) VALUES (?)', [label.label]);
   }
 
-  async update(label: Label) {
+  async update(label: Label): Promise<void> {
     await this.pool.execute('UPDATE labels SET label = ? WHERE label_id = ?', [label.label, label.labelId]);
   }
 
-  async delete(labelId: number) {
+  async delete(labelId: number): Promise<void> {
     await this.pool.execute('UPDATE labels SET status_code = ? WHERE label_id = ?', ['Removed', labelId]);
   }
 }

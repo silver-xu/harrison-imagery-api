@@ -1,4 +1,3 @@
-import { Image } from '../../dto/image';
 import { ImageLabel, Labelling } from '../../dto/imageLabel';
 import { LabelledImage } from '../../dto/imageLabel/labelledImage';
 

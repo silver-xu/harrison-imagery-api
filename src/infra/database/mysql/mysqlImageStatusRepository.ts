@@ -1,6 +1,7 @@
-import { ImageStatusRepository } from '../imageStatusRepository';
-import { ImageStatus } from '../../../dto/image';
 import { RowDataPacket } from 'mysql2/promise';
+
+import { ImageStatus } from '../../../dto/image';
+import { ImageStatusRepository } from '../imageStatusRepository';
 import { BaseMysqlRepository } from './baseMysqlRepository';
 
 export class MysqlImageStatusRepository extends BaseMysqlRepository implements ImageStatusRepository {

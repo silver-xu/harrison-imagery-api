@@ -1,6 +1,3 @@
-import { Image } from '../image/image';
-import { Label } from '../label/label';
-
 export interface ImageLabel {
   imageLabelId: number;
   imageId: number;

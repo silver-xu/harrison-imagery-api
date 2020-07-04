@@ -1,8 +1,8 @@
-import { ImageRepository } from '../imageRepository';
-import { Image, ImageSearchCriteria } from '../../../dto/image';
-import { BaseMysqlRepository } from './baseMysqlRepository';
-import { Label } from '../../../dto/label';
 import { RowDataPacket } from 'mysql2/promise';
+
+import { Image, ImageSearchCriteria } from '../../../dto/image';
+import { ImageRepository } from '../imageRepository';
+import { BaseMysqlRepository } from './baseMysqlRepository';
 
 export class MysqlImageRepository extends BaseMysqlRepository implements ImageRepository {
   async getById(imageId: number): Promise<Image | undefined> {
@@ -28,7 +28,7 @@ export class MysqlImageRepository extends BaseMysqlRepository implements ImageRe
     };
   }
 
-  async add(image: Image) {
+  async add(image: Image): Promise<void> {
     await this.pool.execute('INSERT INTO images (image_path, width, height, status_code) VALUES (?,?,?,?)', [
       image.imagePath,
       image.width,
@@ -37,11 +37,11 @@ export class MysqlImageRepository extends BaseMysqlRepository implements ImageRe
     ]);
   }
 
-  async delete(imageId: number) {
+  async delete(imageId: number): Promise<void> {
     await this.pool.execute("UPDATE images SET status_code = 'Deleted' WHERE image_id = ?", [imageId]);
   }
 
-  async update(image: Image) {
+  async update(image: Image): Promise<void> {
     await this.pool.execute('UPDATE images SET image_path=?, width=?, height=?, status_code=? WHERE image_id = ?', [
       image.imagePath,
       image.width,
@@ -51,7 +51,7 @@ export class MysqlImageRepository extends BaseMysqlRepository implements ImageRe
     ]);
   }
 
-  search(searchCriteria: ImageSearchCriteria): Promise<void> {
+  search(_searchCriteria: ImageSearchCriteria): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }

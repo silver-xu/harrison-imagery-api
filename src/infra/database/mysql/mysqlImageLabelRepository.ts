@@ -1,11 +1,12 @@
-import { ImageLabel, Labelling } from '../../../dto/imageLabel';
-import { BaseMysqlRepository } from './baseMysqlRepository';
-import { ImageLabelRepository } from '../imageLabelRepository';
-import { LabelledImage } from '../../../dto/imageLabel/labelledImage';
 import { RowDataPacket } from 'mysql2';
 
+import { ImageLabel, Labelling } from '../../../dto/imageLabel';
+import { LabelledImage } from '../../../dto/imageLabel/labelledImage';
+import { ImageLabelRepository } from '../imageLabelRepository';
+import { BaseMysqlRepository } from './baseMysqlRepository';
+
 export class MysqlImageLabelRepository extends BaseMysqlRepository implements ImageLabelRepository {
-  async getById(imageLabelId: number) {
+  async getById(imageLabelId: number): Promise<ImageLabel> {
     const [rows] = (await this.pool.query(
       `SELECT image_label_id, 
               image_id, 
@@ -42,14 +43,14 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
     };
   }
 
-  async add(imageLabel: ImageLabel) {
+  async add(imageLabel: ImageLabel): Promise<void> {
     await this.pool.execute(
       'INSERT INTO image_label (image_id, label_id, x, y, width, height) VALUES (?, ?, ?, ?, ?, ?)',
       [imageLabel.imageId, imageLabel.labelId, imageLabel.x, imageLabel.y, imageLabel.width, imageLabel.height],
     );
   }
 
-  async delete(imageLabelId: number) {
+  async delete(imageLabelId: number): Promise<void> {
     await this.pool.execute('DELETE FROM image_label WHERE image_label_id = ?', [imageLabelId]);
   }
 

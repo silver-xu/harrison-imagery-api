@@ -1,3 +1,3 @@
-(async () => {
+(async (): Promise<void> => {
   console.log('done');
 })();
