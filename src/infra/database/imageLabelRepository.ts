@@ -4,7 +4,8 @@ import { LabelledImage } from '../../dto/imageLabel/labelledImage';
 
 export interface ImageLabelRepository {
   add(imageLabel: ImageLabel);
-  delete(imageId: number, labelId: number);
+  delete(imageLabelId: number);
+  getById(imageLabelId: number);
   getLabellingsByImageId(imageId: number): Promise<Labelling[]>;
   getLabelledImagesByLabelId(labelId: number): Promise<LabelledImage[]>;
 }
