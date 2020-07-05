@@ -37,7 +37,14 @@ describe('test imageMappers', () => {
 
   describe('test mapFromUpdateImageModel', () => {
     it('should map image to updateImageModel', () => {
-      const updateImageModel = mapFromUpdateImageModel(mockImage);
+      const mockUpdateImageModel = {
+        imagePath: 'http://example.com',
+        width: 100,
+        height: 100,
+        statusCode: 'Created',
+      };
+
+      const updateImageModel = mapFromUpdateImageModel(1, mockUpdateImageModel);
 
       expect(updateImageModel).toEqual(updateImageModel);
     });

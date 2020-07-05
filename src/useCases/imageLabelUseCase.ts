@@ -44,9 +44,6 @@ export const addImageLabel = async (addImageLabelModel: AddImageLabelModel): Pro
 
   const imageLabel = mapFromAddImageLabelModel(addImageLabelModel);
   await imageLabelRepository.add(imageLabel);
-
-  image.statusCode = 'Labelled';
-  await imageRepository.update(image);
 };
 
 export const deleteImageLabel = async (imageLabelId: number): Promise<void> => {

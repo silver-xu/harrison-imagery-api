@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import { InvalidTokenError, TokenExpiredError } from '../../../errors/auth';
+import { BadRequestError } from '../../../errors/badRequest';
 import { NotFoundError } from '../../../errors/notFound';
 import { errorHandlerMiddleware } from './errorHandler';
 
@@ -27,15 +28,21 @@ describe('test errorHandlerMiddleware', () => {
     expect(mockSend).toHaveBeenLastCalledWith('foobar');
   });
 
-  it('should return 400 if InvalidTokenError has been passed', async () => {
-    await errorHandlerMiddleware(new InvalidTokenError(), mockRequest, mockResponse, next);
+  it('should return 400 if BadRequestError has been passed', async () => {
+    await errorHandlerMiddleware(new BadRequestError('foobar'), mockRequest, mockResponse, next);
     expect(mockResponse.status).toHaveBeenLastCalledWith(400);
+    expect(mockSend).toHaveBeenLastCalledWith('foobar');
+  });
+
+  it('should return 401 if InvalidTokenError has been passed', async () => {
+    await errorHandlerMiddleware(new InvalidTokenError(), mockRequest, mockResponse, next);
+    expect(mockResponse.status).toHaveBeenLastCalledWith(401);
     expect(mockSend).toHaveBeenLastCalledWith('Your authorization token is invalid');
   });
 
-  it('should return 400 if TokenExpiredError has been passed', async () => {
+  it('should return 401 if TokenExpiredError has been passed', async () => {
     await errorHandlerMiddleware(new TokenExpiredError(), mockRequest, mockResponse, next);
-    expect(mockResponse.status).toHaveBeenLastCalledWith(400);
+    expect(mockResponse.status).toHaveBeenLastCalledWith(401);
     expect(mockSend).toHaveBeenLastCalledWith('Your authorization token has expired');
   });
 

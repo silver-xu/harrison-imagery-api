@@ -28,13 +28,13 @@ export const deleteImage = async (imageId: number): Promise<void> => {
   await imageRepository.delete(imageId);
 };
 
-export const updateImage = async (imageModel: UpdateImageModel): Promise<void> => {
-  const image = await imageRepository.getById(imageModel.imageId);
+export const updateImage = async (imageId: number, imageModel: UpdateImageModel): Promise<void> => {
+  const image = await imageRepository.getById(imageId);
 
   if (!image) {
     throw new NotFoundError('Image was not found');
   }
 
-  const updatedImage = mapFromUpdateImageModel(imageModel);
+  const updatedImage = mapFromUpdateImageModel(imageId, imageModel);
   await imageRepository.update(updatedImage);
 };

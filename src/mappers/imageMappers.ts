@@ -9,4 +9,7 @@ export const mapFromAddImageModel = (addImageModel: AddImageModel): Image => ({
   statusCode: ImageStatusCodes.Created,
 });
 
-export const mapFromUpdateImageModel = (updateImageModel: UpdateImageModel): Image => updateImageModel;
+export const mapFromUpdateImageModel = (imageId: number, updateImageModel: UpdateImageModel): Image => ({
+  imageId,
+  ...updateImageModel,
+});

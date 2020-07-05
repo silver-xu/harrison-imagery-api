@@ -1,3 +1,4 @@
+import * as bodyParser from 'body-parser';
 import * as express from 'express';
 
 import { authMiddleware } from './middlewares/auth';
@@ -8,6 +9,8 @@ import { addSecureRoutes } from './secureRoutes';
 
 const app = express();
 const port = 8080;
+
+app.use(bodyParser.json());
 
 addHealthRoutes(app);
 app.use(authMiddleware);

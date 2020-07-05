@@ -1,3 +1,6 @@
-import { Image } from '../../dto/image';
-
-export interface UpdateImageModel extends Image {}
+export interface UpdateImageModel {
+  imagePath: string;
+  width: number;
+  height: number;
+  statusCode: string;
+}

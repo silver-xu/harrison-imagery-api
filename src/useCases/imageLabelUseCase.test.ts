@@ -168,7 +168,6 @@ describe('test imageLabelUseCase', () => {
 
       await addImageLabel(mockAddImageLabelModel);
       expect(imageLabelRepository.add).toHaveBeenLastCalledWith(mapFromAddImageLabelModel(mockAddImageLabelModel));
-      expect(imageRepository.update).toHaveBeenLastCalledWith({ ...mockImage, statusCode: 'Labelled' });
     });
   });
 

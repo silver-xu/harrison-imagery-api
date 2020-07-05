@@ -16,6 +16,13 @@ describe('test imageUseCase', () => {
     statusCode: 'Create',
   };
 
+  const mockUpdateImageModel = {
+    imagePath: 'http://example.com',
+    width: 100,
+    height: 100,
+    statusCode: 'Create',
+  };
+
   describe('test getImage', () => {
     it('should throw NotFoundError if imageRepository.getById is returning undefined', async () => {
       mockedImageRepository.getById.mockResolvedValue(undefined);
@@ -64,15 +71,15 @@ describe('test imageUseCase', () => {
     it('should throw NotFoundError if imageRepository.getById is returning undefined', async () => {
       mockedImageRepository.getById.mockResolvedValue(undefined);
 
-      await expect(updateImage(mockImage)).rejects.toEqual(new NotFoundError('Image was not found'));
+      await expect(updateImage(1, mockUpdateImageModel)).rejects.toEqual(new NotFoundError('Image was not found'));
     });
 
     it('should call imageRepository.delete if imageRepository.getById is returning image', async () => {
       mockedImageRepository.getById.mockResolvedValue(mockImage);
 
-      await updateImage(mockImage);
+      await updateImage(1, mockUpdateImageModel);
 
-      expect(mockedImageRepository.update).toHaveBeenLastCalledWith(mapFromUpdateImageModel(mockImage));
+      expect(mockedImageRepository.update).toHaveBeenLastCalledWith(mapFromUpdateImageModel(1, mockUpdateImageModel));
     });
   });
 });
