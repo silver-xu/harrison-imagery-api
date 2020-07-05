@@ -4,4 +4,9 @@ export const config = {
     user: 'root',
     password: 'harrison',
   },
+  test: {
+    dbHost: 'localhost',
+    user: 'dummy',
+    password: 'dummy',
+  },
 };

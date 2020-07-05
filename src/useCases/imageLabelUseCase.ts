@@ -1,7 +1,35 @@
-import { AddImageLabelModel } from '../domains/imageLabelModels';
+import { AddImageLabelModel, GetLabelledImagesModel, GetLabellingsModel } from '../domains/imageLabelModels';
 import { NotFoundError } from '../errors/notFound';
 import { imageLabelRepository, imageRepository, labelRepository } from '../infra/database';
-import { mapFromAddImageLabelModel } from '../mappers/imageLabelMappers';
+import {
+  mapFromAddImageLabelModel,
+  mapToGetLabelledImagesModel,
+  mapToGetLabellingsModel,
+} from '../mappers/imageLabelMappers';
+
+export const getImageLabellings = async (imageId: number): Promise<GetLabellingsModel> => {
+  const image = await imageRepository.getById(imageId);
+
+  if (!image) {
+    throw new NotFoundError('Image was not found');
+  }
+
+  const labellings = await imageLabelRepository.getLabellingsByImageId(imageId);
+
+  return mapToGetLabellingsModel(labellings);
+};
+
+export const getLabelledImages = async (labelId: number): Promise<GetLabelledImagesModel> => {
+  const label = await labelRepository.getById(labelId);
+
+  if (!label) {
+    throw new NotFoundError('Label was not found');
+  }
+
+  const labelledImages = await imageLabelRepository.getLabelledImagesByLabelId(labelId);
+
+  return mapToGetLabelledImagesModel(labelledImages);
+};
 
 export const addImageLabel = async (addImageLabelModel: AddImageLabelModel): Promise<void> => {
   const image = await imageRepository.getById(addImageLabelModel.imageId);

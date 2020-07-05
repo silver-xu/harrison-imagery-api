@@ -31,7 +31,7 @@ export const mapToGetLabellingsModel = (labellings: Labelling[]): GetLabellingsM
   };
 };
 
-export const mapToGetLabelImagesModel = (labelledImages: LabelledImage[]): GetLabelledImagesModel => {
+export const mapToGetLabelledImagesModel = (labelledImages: LabelledImage[]): GetLabelledImagesModel => {
   const distinctLabelledImages = labelledImages.filter(
     (labelledImage, index, uniqueList) =>
       uniqueList.findIndex((item) => item.imageId === labelledImage.imageId) === index,

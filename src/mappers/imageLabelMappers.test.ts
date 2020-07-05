@@ -1,5 +1,5 @@
 import { Labelling } from '../dto/imageLabel';
-import { mapFromAddImageLabelModel, mapToGetLabelImagesModel,mapToGetLabellingsModel } from './imageLabelMappers';
+import { mapFromAddImageLabelModel, mapToGetLabelledImagesModel, mapToGetLabellingsModel } from './imageLabelMappers';
 
 describe('test imageLabelMappers', () => {
   describe('test mapFromAddImageLabelModel', () => {
@@ -145,7 +145,7 @@ describe('test imageLabelMappers', () => {
         },
       ];
 
-      const getLabelledImagesModel = mapToGetLabelImagesModel(mockLabelledImages);
+      const getLabelledImagesModel = mapToGetLabelledImagesModel(mockLabelledImages);
 
       expect(getLabelledImagesModel).toEqual({
         images: [
