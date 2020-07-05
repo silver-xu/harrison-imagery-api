@@ -1,5 +1,5 @@
 import { Labelling } from '../dto/imageLabel';
-import { mapFromAddImageLabelModel, mapToGetLabellingsModel, mapToGetLabelImagesModel } from './imageLabelMappers';
+import { mapFromAddImageLabelModel, mapToGetLabelImagesModel,mapToGetLabellingsModel } from './imageLabelMappers';
 
 describe('test imageLabelMappers', () => {
   describe('test mapFromAddImageLabelModel', () => {

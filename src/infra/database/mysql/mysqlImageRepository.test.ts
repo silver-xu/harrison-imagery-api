@@ -78,7 +78,13 @@ describe('test mysqlImageRepository', () => {
       it('should invoke UPDATE statement with correct parameters', async () => {
         await repository.update(mockImage);
 
-        expect(mockPool.execute).toHaveBeenLastCalledWith(expect.anything(), ['http://example.com', 100, 100, 1]);
+        expect(mockPool.execute).toHaveBeenLastCalledWith(expect.anything(), [
+          'http://example.com',
+          100,
+          100,
+          1,
+          'Created',
+        ]);
       });
     });
   });

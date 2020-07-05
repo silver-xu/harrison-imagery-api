@@ -42,11 +42,12 @@ export class MysqlImageRepository extends BaseMysqlRepository implements ImageRe
   }
 
   async update(image: Image): Promise<void> {
-    await this.pool.execute('UPDATE images SET image_path=?, width=?, height=? WHERE image_id = ?', [
+    await this.pool.execute('UPDATE images SET image_path=?, width=?, height=?, status_code=? WHERE image_id = ?', [
       image.imagePath,
       image.width,
       image.height,
       image.imageId,
+      image.statusCode,
     ]);
   }
 }
