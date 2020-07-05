@@ -9,15 +9,6 @@ export interface AddLabelModel {
 }
 export interface UpdateLabelModel extends Label {}
 
-export interface GetLabelledImagesModel {
-  images: LabeledImageModel[];
-}
-
-export interface LabeledImageModel {
-  image: GetImageModel;
-  labelPositions: LabelPosition[];
-}
-
 export enum LabelStatusCodes {
   InUse = 'InUse',
   Deleted = 'Deleted',

@@ -4,7 +4,6 @@ import { config } from '../../config';
 import { AuthTokenRepository } from './authTokenRepository';
 import { ImageLabelRepository } from './imageLabelRepository';
 import { ImageRepository } from './imageRepository';
-import { ImageStatusRepository } from './imageStatusRepository';
 import { LabelRepository } from './labelRepository';
 import { MysqlAuthTokenRepository } from './mysql/mysqlAuthTokenRepository';
 import { MysqlImageLabelRepository } from './mysql/mysqlImageLabelRepository';
