@@ -2,8 +2,9 @@ import { Request, Response } from 'express';
 
 import { InvalidTokenError, TokenExpiredError } from '../../../errors/auth';
 import { verifyToken } from '../../../useCases/authUseCase';
+import { Next } from '../types/next';
 
-export const authMiddleware = async (req: Request, res: Response, next): Promise<void> => {
+export const authMiddleware = async (req: Request, res: Response, next: Next): Promise<void> => {
   const authToken = req.headers['x-auth'] as string;
 
   let error;

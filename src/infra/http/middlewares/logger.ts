@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 
-export const loggerMiddleware = (error: Error, req: Request, res: Response, next): void => {
+import { Next } from '../types/next';
+
+export const loggerMiddleware = (error: Error, req: Request, res: Response, next: Next): void => {
   const userId = res.locals.appScope?.userId;
 
   const log = {
