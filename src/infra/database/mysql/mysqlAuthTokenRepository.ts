@@ -6,7 +6,9 @@ import { BaseMysqlRepository } from './baseMysqlRepository';
 
 export class MysqlAuthTokenRepository extends BaseMysqlRepository implements AuthTokenRepository {
   async getByToken(token: string): Promise<AuthToken | undefined> {
-    const [rows] = (await this.pool.query('SELECT token_id, token, expiry_date FROM auth_tokens WHERE token = ?', [
+    const [
+      rows,
+    ] = (await this.pool.query('SELECT token_id, token, expiry_date, user_id FROM auth_tokens WHERE token = ?', [
       token,
     ])) as RowDataPacket[];
 
@@ -18,6 +20,7 @@ export class MysqlAuthTokenRepository extends BaseMysqlRepository implements Aut
       tokenId: rows[0]['token_id'],
       token: rows[0]['token'],
       expiryDate: rows[0]['expiry_date'],
+      userId: rows[0]['user_id'],
     };
   }
 }

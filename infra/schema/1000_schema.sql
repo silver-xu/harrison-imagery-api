@@ -1,7 +1,8 @@
 CREATE TABLE auth_tokens(
   token_id INT AUTO_INCREMENT PRIMARY KEY,
   token NVARCHAR(255) NOT NULL UNIQUE,
-  expiry_date DATETIME NOT NULL
+  expiry_date DATETIME NOT NULL,
+  user_id INT NOT NULL
 );
 
 CREATE TABLE image_status (

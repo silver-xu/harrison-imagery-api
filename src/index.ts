@@ -1,3 +1,1 @@
-(async (): Promise<void> => {
-  console.log('done');
-})();
+import './infra/http/app';

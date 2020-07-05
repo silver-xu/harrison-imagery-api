@@ -7,12 +7,12 @@ export const verifyToken = async (token: string): Promise<AuthResult> => {
   const currentDateTime = new Date();
 
   if (!authToken) {
-    return { rejectionReason: 'invalid' };
+    return { isAuthorised: false, rejectionReason: 'invalid' };
   }
 
   if (authToken.expiryDate <= currentDateTime) {
-    return { rejectionReason: 'expired' };
+    return { isAuthorised: false, rejectionReason: 'expired' };
   }
 
-  return true;
+  return { isAuthorised: true, userId: authToken.userId };
 };

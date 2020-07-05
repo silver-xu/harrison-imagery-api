@@ -18,7 +18,7 @@ describe('test authUseCase', () => {
       mockedAuthTokenRepository.getByToken.mockResolvedValue(undefined);
 
       const authResult = await verifyToken('foobar');
-      expect(authResult).toEqual({ rejectionReason: 'invalid' });
+      expect(authResult).toEqual({ isAuthorised: false, rejectionReason: 'invalid' });
     });
 
     it('it should return expired as rejectionReason if token expiry date is less than or equal to now', async () => {
@@ -28,10 +28,11 @@ describe('test authUseCase', () => {
         tokenId: 1,
         token: 'foobar',
         expiryDate: yesterday,
+        userId: 1,
       });
 
       const authResult = await verifyToken('foobar');
-      expect(authResult).toEqual({ rejectionReason: 'expired' });
+      expect(authResult).toEqual({ isAuthorised: false, rejectionReason: 'expired' });
     });
 
     it('it should return true if token is valid and not expired', async () => {
@@ -41,10 +42,11 @@ describe('test authUseCase', () => {
         tokenId: 1,
         token: 'foobar',
         expiryDate: tomorrow,
+        userId: 1,
       });
 
       const authResult = await verifyToken('foobar');
-      expect(authResult).toEqual(true);
+      expect(authResult).toEqual({ isAuthorised: true, userId: 1 });
     });
   });
 });
