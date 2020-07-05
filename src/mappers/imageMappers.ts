@@ -1,4 +1,4 @@
-import { AddImageModel, GetImageModel, ImageStatusCodes, UpdateImageModel } from '../domains/imageModels';
+import { AddImageModel, GetImageModel, ImageStatusCodes, UpdateImageModel } from '../domains/image';
 import { Image } from '../dto/image';
 
 export const mapToGetImageModel = (image: Image): GetImageModel => image;

@@ -1,4 +1,4 @@
-import { AddImageModel, GetImageModel, UpdateImageModel } from '../domains/imageModels';
+import { AddImageModel, GetImageModel, UpdateImageModel } from '../domains/image';
 import { NotFoundError } from '../errors/notFound';
 import { imageRepository } from '../infra/database';
 import { mapFromAddImageModel, mapFromUpdateImageModel, mapToGetImageModel } from '../mappers/imageMappers';

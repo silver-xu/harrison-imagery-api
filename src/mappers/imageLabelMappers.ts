@@ -1,4 +1,4 @@
-import { AddImageLabelModel, GetLabelledImagesModel, GetLabellingsModel } from '../domains/imageLabelModels';
+import { AddImageLabelModel, GetLabelledImagesModel, GetLabellingsModel } from '../domains/imageLabel';
 import { ImageLabel, Labelling } from '../dto/imageLabel';
 import { LabelledImage } from '../dto/imageLabel/labelledImage';
 

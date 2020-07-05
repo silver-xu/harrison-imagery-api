@@ -1,4 +1,4 @@
-import { AddLabelModel, GetLabelModel, UpdateLabelModel } from '../domains/labelModels';
+import { AddLabelModel, GetLabelModel, UpdateLabelModel } from '../domains/label';
 import { NotFoundError } from '../errors/notFound';
 import { labelRepository } from '../infra/database';
 import { mapFromAddLabelModel, mapFromUpdateLabelModel, mapToGetLabelModel } from '../mappers/labelMappers';

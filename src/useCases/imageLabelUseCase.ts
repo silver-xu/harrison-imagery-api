@@ -1,4 +1,4 @@
-import { AddImageLabelModel, GetLabelledImagesModel, GetLabellingsModel } from '../domains/imageLabelModels';
+import { AddImageLabelModel, GetLabelledImagesModel, GetLabellingsModel } from '../domains/imageLabel';
 import { NotFoundError } from '../errors/notFound';
 import { imageLabelRepository, imageRepository, labelRepository } from '../infra/database';
 import {

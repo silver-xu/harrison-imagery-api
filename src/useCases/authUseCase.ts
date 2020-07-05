@@ -1,4 +1,4 @@
-import { AuthResult } from '../domains/authModels';
+import { AuthResult } from '../domains/auth/authModels';
 import { authTokenRepository } from '../infra/database';
 
 export const verifyToken = async (token: string): Promise<AuthResult> => {
