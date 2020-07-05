@@ -58,6 +58,7 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
     const [rows] = (await this.pool.query(
       `SELECT labels.label_id, 
               labels.label, 
+              labels.status_code,
               image_label.image_label_id,
               image_label.x, 
               image_label.y, 
@@ -78,6 +79,7 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
       imageLabelId: row['image_label_id'],
       labelId: row['label_id'],
       label: row['label'],
+      statusCode: row['status_code'],
       x: row['x'],
       y: row['y'],
       width: row['width'],

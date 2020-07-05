@@ -9,7 +9,6 @@ import { LabelRepository } from './labelRepository';
 import { MysqlAuthTokenRepository } from './mysql/mysqlAuthTokenRepository';
 import { MysqlImageLabelRepository } from './mysql/mysqlImageLabelRepository';
 import { MysqlImageRepository } from './mysql/mysqlImageRepository';
-import { MysqlImageStatusRepository } from './mysql/mysqlImageStatusRepository';
 import { MysqlLabelRepository } from './mysql/mysqlLabelRepository';
 
 const { NODE_ENV } = process.env;
@@ -23,7 +22,6 @@ const pool = createPool({
 });
 
 export const imageRepository: ImageRepository = new MysqlImageRepository(pool);
-export const imageStatusRepository: ImageStatusRepository = new MysqlImageStatusRepository(pool);
 export const labelRepository: LabelRepository = new MysqlLabelRepository(pool);
 export const imageLabelRepository: ImageLabelRepository = new MysqlImageLabelRepository(pool);
 export const authTokenRepository: AuthTokenRepository = new MysqlAuthTokenRepository(pool);
