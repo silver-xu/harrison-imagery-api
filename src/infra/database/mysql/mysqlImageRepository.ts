@@ -1,6 +1,6 @@
 import { RowDataPacket } from 'mysql2/promise';
 
-import { Image, ImageSearchCriteria } from '../../../dto/image';
+import { Image } from '../../../dto/image';
 import { ImageRepository } from '../imageRepository';
 import { BaseMysqlRepository } from './baseMysqlRepository';
 
