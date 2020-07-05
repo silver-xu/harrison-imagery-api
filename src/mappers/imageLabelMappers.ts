@@ -31,7 +31,7 @@ export const mapToGetLabellingsModel = (labellings: Labelling[]): GetLabellingsM
   };
 };
 
-export const mapToGetLabelImages = (labelledImages: LabelledImage[]): GetLabelledImagesModel => {
+export const mapToGetLabelImagesModel = (labelledImages: LabelledImage[]): GetLabelledImagesModel => {
   const distinctLabelledImages = labelledImages.filter(
     (labelledImage, index, uniqueList) =>
       uniqueList.findIndex((item) => item.imageId === labelledImage.imageId) === index,
@@ -47,7 +47,7 @@ export const mapToGetLabelImages = (labelledImages: LabelledImage[]): GetLabelle
         height: distinctLabelImage.height,
       },
       labelPositions: labelledImages
-        .filter((labelledImage) => labelledImage.labelId === distinctLabelImage.labelId)
+        .filter((labelledImage) => labelledImage.imageId === distinctLabelImage.imageId)
         .map((labelledImage) => ({
           x: labelledImage.labelX,
           y: labelledImage.labelY,
