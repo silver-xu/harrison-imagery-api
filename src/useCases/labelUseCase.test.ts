@@ -60,15 +60,15 @@ describe('test labelUseCase', () => {
     it('should throw NotFoundError if labelRepository.getById is returning undefined', async () => {
       mockedLabelRepository.getById.mockResolvedValue(undefined);
 
-      await expect(updateLabel(mockLabel)).rejects.toEqual(new NotFoundError('Label was not found'));
+      await expect(updateLabel(1, mockLabel)).rejects.toEqual(new NotFoundError('Label was not found'));
     });
 
     it('should call labelRepository.delete if labelRepository.getById is returning label', async () => {
       mockedLabelRepository.getById.mockResolvedValue(mockLabel);
 
-      await updateLabel(mockLabel);
+      await updateLabel(1, mockLabel);
 
-      expect(mockedLabelRepository.update).toHaveBeenLastCalledWith(mapFromUpdateLabelModel(mockLabel));
+      expect(mockedLabelRepository.update).toHaveBeenLastCalledWith(mapFromUpdateLabelModel(1, mockLabel));
     });
   });
 });

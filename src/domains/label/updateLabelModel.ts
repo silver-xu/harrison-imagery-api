@@ -1,3 +1,4 @@
-import { Label } from '../../dto/label';
-
-export interface UpdateLabelModel extends Label {}
+export interface UpdateLabelModel {
+  label: string;
+  statusCode: string;
+}

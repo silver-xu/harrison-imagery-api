@@ -9,4 +9,7 @@ export const mapFromAddLabelModel = (addLabelModel: AddLabelModel): Label => ({
   statusCode: LabelStatusCodes.InUse,
 });
 
-export const mapFromUpdateLabelModel = (updateLabelModel: UpdateLabelModel): Label => updateLabelModel;
+export const mapFromUpdateLabelModel = (labelId: number, updateLabelModel: UpdateLabelModel): Label => ({
+  labelId,
+  ...updateLabelModel,
+});

@@ -33,7 +33,7 @@ describe('test labelMappers', () => {
 
   describe('test mapFromUpdateLabelModel', () => {
     it('should map label to updateLabelModel', () => {
-      const updateLabelModel = mapFromUpdateLabelModel(mockLabel);
+      const updateLabelModel = mapFromUpdateLabelModel(1, mockLabel);
 
       expect(updateLabelModel).toEqual(updateLabelModel);
     });

@@ -28,13 +28,13 @@ export const deleteLabel = async (labelId: number): Promise<void> => {
   await labelRepository.delete(labelId);
 };
 
-export const updateLabel = async (labelModel: UpdateLabelModel): Promise<void> => {
-  const label = await labelRepository.getById(labelModel.labelId);
+export const updateLabel = async (labelId: number, labelModel: UpdateLabelModel): Promise<void> => {
+  const label = await labelRepository.getById(labelId);
 
   if (!label) {
     throw new NotFoundError('Label was not found');
   }
 
-  const updatedLabel = mapFromUpdateLabelModel(labelModel);
+  const updatedLabel = mapFromUpdateLabelModel(labelId, labelModel);
   await labelRepository.update(updatedLabel);
 };

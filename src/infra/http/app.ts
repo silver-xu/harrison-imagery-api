@@ -13,6 +13,7 @@ const port = 8080;
 app.use(bodyParser.json());
 
 addHealthRoutes(app);
+
 app.use(authMiddleware);
 addSecureRoutes(app);
 app.use(loggerMiddleware);
