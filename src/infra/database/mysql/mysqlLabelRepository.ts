@@ -35,6 +35,6 @@ export class MysqlLabelRepository extends BaseMysqlRepository implements LabelRe
   }
 
   async delete(labelId: number): Promise<void> {
-    await this.pool.execute('UPDATE labels SET status_code = ? WHERE label_id = ?', ['Deleted', labelId]);
+    await this.pool.execute("UPDATE labels SET status_code = 'Deleted' WHERE label_id = ?", [labelId]);
   }
 }

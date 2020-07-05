@@ -49,8 +49,4 @@ export class MysqlImageRepository extends BaseMysqlRepository implements ImageRe
       image.imageId,
     ]);
   }
-
-  search(_searchCriteria: ImageSearchCriteria): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
 }
