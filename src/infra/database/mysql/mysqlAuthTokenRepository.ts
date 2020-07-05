@@ -15,7 +15,7 @@ export class MysqlAuthTokenRepository extends BaseMysqlRepository implements Aut
     }
 
     return {
-      tokenid: rows[0]['token_id'],
+      tokenId: rows[0]['token_id'],
       token: rows[0]['token'],
       expiryDate: rows[0]['expiry_date'],
     };

@@ -36,7 +36,7 @@ describe('test authTokenRepository', () => {
       const token = await repository.getByToken('foobar');
 
       expect(token).toEqual({
-        tokenid: 1,
+        tokenId: 1,
         token: 'foobar',
         expiryDate: date,
       });
