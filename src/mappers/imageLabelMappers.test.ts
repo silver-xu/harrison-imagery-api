@@ -2,6 +2,7 @@ import { Labelling } from '../dto/imageLabel';
 import { mapFromAddImageLabelModel, mapToGetLabelledImagesModel, mapToGetLabellingsModel } from './imageLabelMappers';
 
 describe('test imageLabelMappers', () => {
+  Date.now = jest.fn().mockReturnValue(0);
   const date = new Date();
   describe('test mapFromAddImageLabelModel', () => {
     it('should map from addImageLabelModel to imageLabel', () => {
@@ -15,10 +16,12 @@ describe('test imageLabelMappers', () => {
       };
 
       const imageLabel = mapFromAddImageLabelModel(mockAddImageLabelModel);
-      const { imageId, labelId, x, y, width, height } = imageLabel;
 
-      expect(imageLabel.imageLabelId).toEqual(0);
-      expect({ imageId, labelId, x, y, width, height }).toEqual(mockAddImageLabelModel);
+      expect(imageLabel).toEqual({
+        imageLabelId: 0,
+        ...mockAddImageLabelModel,
+        labelledDate: new Date(Date.now()),
+      });
     });
   });
 

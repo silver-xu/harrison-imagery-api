@@ -6,7 +6,7 @@ import { LabelledImage } from '../dto/imageLabel/labelledImage';
 export const mapFromAddImageLabelModel = (addImageLabelModel: AddImageLabelModel): ImageLabel => ({
   imageLabelId: 0,
   ...addImageLabelModel,
-  labelledDate: new Date(),
+  labelledDate: new Date(Date.now()),
 });
 
 export const mapToGetLabellingsModel = (labellings: Labelling[]): GetLabellingsModel => {
