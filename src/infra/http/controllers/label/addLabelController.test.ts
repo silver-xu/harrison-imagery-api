@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { LabelStatusCodes } from '../../../../domains/label';
 import { BadRequestError } from '../../../../errors/badRequest';
 import * as labelUseCase from '../../../../useCases/labelUseCase';
 import { addLabelController } from './addLabelController';
@@ -16,7 +17,7 @@ describe('test addLabelController', () => {
   const mockGetLabelModel = {
     labelId: 1,
     ...mockAddLabelModel,
-    statusCode: 'InUse',
+    statusCode: LabelStatusCodes.InUse,
   };
 
   it(`should call next(BadRequestError) if label is missing`, async () => {

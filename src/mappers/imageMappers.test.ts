@@ -47,7 +47,7 @@ describe('test imageMappers', () => {
         imagePath: 'http://example.com',
         width: 100,
         height: 100,
-        statusCode: 'Created',
+        statusCode: ImageStatusCodes.Created,
       };
 
       const image = mapFromUpdateImageModel(1, mockUpdateImageModel);

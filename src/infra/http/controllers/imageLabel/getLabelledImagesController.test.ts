@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { ImageStatusCodes } from '../../../../domains/image';
 import { BadRequestError } from '../../../../errors/badRequest';
 import * as imageLabelUseCase from '../../../../useCases/imageLabelUseCase';
 import { getLabelledImagesController } from './getLabelledImagesController';
@@ -48,7 +49,7 @@ describe('test getLabelledImagesController', () => {
             imagePath: 'http://example.com',
             width: 100,
             height: 100,
-            statusCode: 'Labelled',
+            statusCode: ImageStatusCodes.Labelled,
           },
           labelPositions: [
             {
@@ -73,7 +74,7 @@ describe('test getLabelledImagesController', () => {
             imagePath: 'http://example2.com',
             width: 200,
             height: 200,
-            statusCode: 'Labelled',
+            statusCode: ImageStatusCodes.Labelled,
           },
           labelPositions: [
             {

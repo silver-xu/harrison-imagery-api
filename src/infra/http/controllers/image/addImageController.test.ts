@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { ImageStatusCodes } from '../../../../domains/image';
 import { BadRequestError } from '../../../../errors/badRequest';
 import * as imageUseCase from '../../../../useCases/imageUseCase';
 import { addImageController } from './addImageController';
@@ -18,7 +19,7 @@ describe('test addImageController', () => {
   const mockGetImageModel = {
     imageId: 1,
     ...mockAddImageModel,
-    statusCode: 'Created',
+    statusCode: ImageStatusCodes.Created,
   };
 
   describe('with invalid request body', () => {

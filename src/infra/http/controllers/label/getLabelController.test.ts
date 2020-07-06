@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { LabelStatusCodes } from '../../../../domains/label';
 import { BadRequestError } from '../../../../errors/badRequest';
 import * as labelUseCase from '../../../../useCases/labelUseCase';
 import { getLabelController } from '.';
@@ -43,7 +44,7 @@ describe('test getLabelController', () => {
     const mockGetLabelModel = {
       labelId: 1,
       label: 'foo',
-      statusCode: 'InUse',
+      statusCode: LabelStatusCodes.InUse,
     };
 
     mockedLabelUseCase.getLabel.mockResolvedValue(mockGetLabelModel);
