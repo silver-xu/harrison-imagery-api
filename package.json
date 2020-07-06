@@ -19,6 +19,8 @@
   "author": "Silver Xu",
   "license": "AGPL-3.0-only",
   "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
     "@types/aws-lambda": "^8.10.57",
     "@types/aws-serverless-express": "^3.3.3",
     "@types/body-parser": "^1.19.0",
@@ -44,7 +46,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint"
+      "pre-commit": "yarn lint",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "dependencies": {
