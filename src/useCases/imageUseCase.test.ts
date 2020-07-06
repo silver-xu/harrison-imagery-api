@@ -3,6 +3,7 @@ import { NotFoundError } from '../errors/notFound';
 import { imageRepository } from '../infra/database';
 import { mapFromAddImageModel, mapFromUpdateImageModel } from '../mappers/imageMappers';
 import { addImage, deleteImage, getImage, searchImages, updateImage } from './imageUseCase';
+import { BadRequestError } from '../errors/badRequest';
 
 jest.mock('../infra/database');
 
@@ -39,6 +40,12 @@ describe('test imageUseCase', () => {
   });
 
   describe('test searchImage', () => {
+    it('should throw BadRequestError if imageStatusCode is Deleted', async () => {
+      await expect(searchImages({ imageStatusCode: ImageStatusCodes.Deleted })).rejects.toEqual(
+        new BadRequestError('Deleted status cannot be used in search'),
+      );
+    });
+
     it('should return getImageModel if imageRepository.search is returning images', async () => {
       mockedImageRepository.search.mockResolvedValue([mockImage]);
       const image = await searchImages({});

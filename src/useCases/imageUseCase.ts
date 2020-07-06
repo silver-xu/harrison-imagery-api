@@ -8,6 +8,7 @@ import {
   mapFromUpdateImageModel,
   mapToGetImageModel,
 } from '../mappers/imageMappers';
+import { BadRequestError } from '../errors/badRequest';
 
 export const getImage = async (imageId: number): Promise<GetImageModel> => {
   const image = await imageRepository.getById(imageId);
@@ -31,6 +32,10 @@ export const addImage = async (imageModel: AddImageModel): Promise<GetImageModel
 };
 
 export const searchImages = async (imageSearchCriteriaModel: ImageSearchCriteriaModel): Promise<GetImageModel[]> => {
+  if (imageSearchCriteriaModel.imageStatusCode === ImageStatusCodes.Deleted) {
+    throw new BadRequestError('Deleted status cannot be used in search');
+  }
+
   const searchCritera = mapFromImageSearchCriteriaModel(imageSearchCriteriaModel);
   const images = await imageRepository.search(searchCritera);
 
