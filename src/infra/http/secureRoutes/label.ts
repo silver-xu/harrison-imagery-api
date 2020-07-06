@@ -69,7 +69,7 @@ export const addLabelRoutes = (app: Express): Express => {
    *          type: string
    *      responses:
    *        200:
-   *          description: Ok
+   *          description: label created
    *        400:
    *          description: Unauthorized access
    *        401:

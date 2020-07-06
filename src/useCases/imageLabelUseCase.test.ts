@@ -163,11 +163,13 @@ describe('test imageLabelUseCase', () => {
     });
 
     it('should pass imageLabel to imageLabelRepository.add if labelRepository.getById and imageRepository.getById are returning values', async () => {
+      mockedImageLabelRepository.add.mockResolvedValue(1);
       mockedImageRepository.getById.mockResolvedValue(mockImage);
       mockedLabelRepository.getById.mockResolvedValue(mockLabel);
 
-      await addImageLabel(mockAddImageLabelModel);
+      const imageLabel = await addImageLabel(mockAddImageLabelModel);
       expect(imageLabelRepository.add).toHaveBeenLastCalledWith(mapFromAddImageLabelModel(mockAddImageLabelModel));
+      expect(mockAddImageLabelModel).toEqual({ imageLabelId: 1, ...imageLabel });
     });
   });
 

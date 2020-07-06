@@ -46,16 +46,16 @@ describe('test mysqlImageRepository', () => {
   });
 
   describe('test CRUD', () => {
-    const mockPool = {
-      query: jest.fn(),
-      execute: jest.fn(),
-    };
-
-    const repository = new MysqlImageRepository(mockPool);
-
     describe('test add', () => {
+      const mockPool = {
+        query: jest.fn(),
+        execute: jest.fn().mockReturnValue([{ insertId: 1 }]),
+      };
+
+      const repository = new MysqlImageRepository(mockPool);
+
       it('should invoke INSERT statement with correct parameters', async () => {
-        await repository.add(mockImage);
+        const id = await repository.add(mockImage);
 
         expect(mockPool.execute).toHaveBeenLastCalledWith(expect.anything(), [
           'http://example.com',
@@ -63,10 +63,19 @@ describe('test mysqlImageRepository', () => {
           100,
           'Created',
         ]);
+
+        expect(id).toEqual(1);
       });
     });
 
     describe('test delete', () => {
+      const mockPool = {
+        query: jest.fn(),
+        execute: jest.fn(),
+      };
+
+      const repository = new MysqlImageRepository(mockPool);
+
       it('should invoke DELETE statement with correct parameters', async () => {
         await repository.delete(1);
 
@@ -75,6 +84,13 @@ describe('test mysqlImageRepository', () => {
     });
 
     describe('test update', () => {
+      const mockPool = {
+        query: jest.fn(),
+        execute: jest.fn(),
+      };
+
+      const repository = new MysqlImageRepository(mockPool);
+
       it('should invoke UPDATE statement with correct parameters', async () => {
         await repository.update(mockImage);
 

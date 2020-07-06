@@ -39,15 +39,22 @@ describe('test imageUseCase', () => {
 
   describe('test addImage', () => {
     it('should map and pass addImageModel to imageRepository.add', async () => {
+      mockedImageRepository.add.mockResolvedValue(1);
+
       const addImageModel = {
         imagePath: 'http://example.com',
         width: 100,
         height: 100,
       };
 
-      await addImage(addImageModel);
+      const image = await addImage(addImageModel);
 
       expect(mockedImageRepository.add).toHaveBeenLastCalledWith(mapFromAddImageModel(addImageModel));
+      expect(image).toEqual({
+        imageId: 1,
+        ...addImageModel,
+        statusCode: 'Created',
+      });
     });
   });
 

@@ -43,11 +43,17 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
     };
   }
 
-  async add(imageLabel: ImageLabel): Promise<void> {
-    await this.pool.execute(
+  async add(imageLabel: ImageLabel): Promise<number> {
+    const result = (await this.pool.execute(
       'INSERT INTO image_label (image_id, label_id, x, y, width, height) VALUES (?, ?, ?, ?, ?, ?)',
       [imageLabel.imageId, imageLabel.labelId, imageLabel.x, imageLabel.y, imageLabel.width, imageLabel.height],
-    );
+    )) as RowDataPacket[];
+
+    if (result.length === 0 || !result[0]['insertId']) {
+      throw new Error('Image insertion failed');
+    }
+
+    return result[0]['insertId'];
   }
 
   async delete(imageLabelId: number): Promise<void> {

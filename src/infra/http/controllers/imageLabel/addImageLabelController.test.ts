@@ -7,6 +7,8 @@ import { addImageLabelController } from './addImageLabelController';
 jest.mock('../../../../useCases/imageLabelUseCase');
 
 describe('test addImageLabelController', () => {
+  const mockedImageLabelUseCase = imageLabelUseCase as jest.Mocked<typeof imageLabelUseCase>;
+
   const mockAddImageLabelModel = {
     imageId: 1,
     labelId: 1,
@@ -14,6 +16,11 @@ describe('test addImageLabelController', () => {
     y: 0,
     width: 100,
     height: 100,
+  };
+
+  const mockGetImageLabelModel = {
+    imageLabelId: 1,
+    ...mockAddImageLabelModel,
   };
 
   describe('with invalid request body', () => {
@@ -130,7 +137,8 @@ describe('test addImageLabelController', () => {
     });
   });
 
-  it('should send Ok if request is valid ', async () => {
+  it('should send mockGetImageLabelModel if request is valid ', async () => {
+    mockedImageLabelUseCase.addImageLabel.mockResolvedValue(mockGetImageLabelModel);
     const mockRequest = {
       body: mockAddImageLabelModel,
     } as Request;
@@ -141,6 +149,6 @@ describe('test addImageLabelController', () => {
 
     await addImageLabelController(mockRequest, mockResponse, next);
     expect(imageLabelUseCase.addImageLabel).toHaveBeenLastCalledWith(mockAddImageLabelModel);
-    expect(mockResponse.send).toHaveBeenLastCalledWith('Ok');
+    expect(mockResponse.send).toHaveBeenLastCalledWith(mockGetImageLabelModel);
   });
 });

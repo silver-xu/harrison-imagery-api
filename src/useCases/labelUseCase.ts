@@ -13,9 +13,15 @@ export const getLabel = async (labelId: number): Promise<GetLabelModel> => {
   return mapToGetLabelModel(label);
 };
 
-export const addLabel = async (labelModel: AddLabelModel): Promise<void> => {
+export const addLabel = async (labelModel: AddLabelModel): Promise<GetLabelModel> => {
   const label = mapFromAddLabelModel(labelModel);
-  await labelRepository.add(label);
+  const labelId = await labelRepository.add(label);
+
+  return {
+    ...label,
+    labelId,
+    statusCode: 'InUse',
+  };
 };
 
 export const deleteLabel = async (labelId: number): Promise<void> => {

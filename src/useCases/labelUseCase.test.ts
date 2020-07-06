@@ -30,13 +30,20 @@ describe('test labelUseCase', () => {
 
   describe('test addLabel', () => {
     it('should map and pass addLabelModel to labelRepository.add', async () => {
+      mockedLabelRepository.add.mockResolvedValue(1);
+
       const addLabelModel = {
         label: 'foobar',
       };
 
-      await addLabel(addLabelModel);
+      const label = await addLabel(addLabelModel);
 
       expect(mockedLabelRepository.add).toHaveBeenLastCalledWith(mapFromAddLabelModel(addLabelModel));
+      expect(label).toEqual({
+        labelId: 1,
+        statusCode: 'InUse',
+        ...addLabelModel,
+      });
     });
   });
 

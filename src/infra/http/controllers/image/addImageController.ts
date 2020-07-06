@@ -16,9 +16,9 @@ export const addImageController = async (req: Request, res: Response, next: Next
       throw new BadRequestError('Request body is malformed');
     }
 
-    await addImage(addImageModel);
+    const image = await addImage(addImageModel);
 
-    res.send('Ok');
+    res.send(image);
   } catch (error) {
     next(error);
   }

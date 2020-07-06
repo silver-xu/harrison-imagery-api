@@ -7,10 +7,18 @@ import { addImageController } from './addImageController';
 jest.mock('../../../../useCases/imageUseCase');
 
 describe('test addImageController', () => {
+  const mockedImageUseCase = imageUseCase as jest.Mocked<typeof imageUseCase>;
+
   const mockAddImageModel = {
     imagePath: 'http://example.com',
     width: 100,
     height: 100,
+  };
+
+  const mockGetImageModel = {
+    imageId: 1,
+    ...mockAddImageModel,
+    statusCode: 'Created',
   };
 
   describe('with invalid request body', () => {
@@ -78,7 +86,9 @@ describe('test addImageController', () => {
     });
   });
 
-  it('should send Ok if request is valid ', async () => {
+  it('should send mockGetImageModel if request is valid ', async () => {
+    mockedImageUseCase.addImage.mockResolvedValue(mockGetImageModel);
+
     const mockRequest = {
       body: mockAddImageModel,
     } as Request;
@@ -89,6 +99,6 @@ describe('test addImageController', () => {
 
     await addImageController(mockRequest, mockResponse, next);
     expect(imageUseCase.addImage).toHaveBeenLastCalledWith(mockAddImageModel);
-    expect(mockResponse.send).toHaveBeenLastCalledWith('Ok');
+    expect(mockResponse.send).toHaveBeenLastCalledWith(mockGetImageModel);
   });
 });

@@ -28,13 +28,17 @@ export class MysqlImageRepository extends BaseMysqlRepository implements ImageRe
     };
   }
 
-  async add(image: Image): Promise<void> {
-    await this.pool.execute('INSERT INTO images (image_path, width, height, status_code) VALUES (?,?,?,?)', [
-      image.imagePath,
-      image.width,
-      image.height,
-      image.statusCode,
-    ]);
+  async add(image: Image): Promise<number> {
+    const result = (await this.pool.execute(
+      'INSERT INTO images (image_path, width, height, status_code) VALUES (?,?,?,?)',
+      [image.imagePath, image.width, image.height, image.statusCode],
+    )) as RowDataPacket[];
+
+    if (result.length === 0 || !result[0]['insertId']) {
+      throw new Error('Image insertion failed');
+    }
+
+    return result[0]['insertId'];
   }
 
   async delete(imageId: number): Promise<void> {

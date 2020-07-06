@@ -26,8 +26,17 @@ export class MysqlLabelRepository extends BaseMysqlRepository implements LabelRe
     };
   }
 
-  async add(label: Label): Promise<void> {
-    await this.pool.execute('INSERT INTO labels (label, status_code) VALUES (?, ?)', [label.label, label.statusCode]);
+  async add(label: Label): Promise<number> {
+    const result = (await this.pool.execute('INSERT INTO labels (label, status_code) VALUES (?, ?)', [
+      label.label,
+      label.statusCode,
+    ])) as RowDataPacket[];
+
+    if (result.length === 0 || !result[0]['insertId']) {
+      throw new Error('Image insertion failed');
+    }
+
+    return result[0]['insertId'];
   }
 
   async update(label: Label): Promise<void> {

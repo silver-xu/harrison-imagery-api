@@ -25,9 +25,9 @@ export const addImageLabelController = async (req: Request, res: Response, next:
       throw new BadRequestError('Request body is malformed');
     }
 
-    await addImageLabel(addLabelModel);
+    const imageLabel = await addImageLabel(addLabelModel);
 
-    res.send('Ok');
+    res.send(imageLabel);
   } catch (error) {
     next(error);
   }

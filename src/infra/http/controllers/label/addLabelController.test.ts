@@ -7,8 +7,16 @@ import { addLabelController } from './addLabelController';
 jest.mock('../../../../useCases/labelUseCase');
 
 describe('test addLabelController', () => {
+  const mockedeLabelUseCase = labelUseCase as jest.Mocked<typeof labelUseCase>;
+
   const mockAddLabelModel = {
     label: 'foo',
+  };
+
+  const mockGetLabelModel = {
+    labelId: 1,
+    ...mockAddLabelModel,
+    statusCode: 'InUse',
   };
 
   it(`should call next(BadRequestError) if label is missing`, async () => {
@@ -22,7 +30,8 @@ describe('test addLabelController', () => {
     expect(next).toHaveBeenLastCalledWith(new BadRequestError('Request body is malformed'));
   });
 
-  it('should send Ok if request is valid ', async () => {
+  it('should send mockGetLabelModel if request is valid ', async () => {
+    mockedeLabelUseCase.addLabel.mockResolvedValue(mockGetLabelModel);
     const mockRequest = {
       body: mockAddLabelModel,
     } as Request;
@@ -33,6 +42,6 @@ describe('test addLabelController', () => {
 
     await addLabelController(mockRequest, mockResponse, next);
     expect(labelUseCase.addLabel).toHaveBeenLastCalledWith(mockAddLabelModel);
-    expect(mockResponse.send).toHaveBeenLastCalledWith('Ok');
+    expect(mockResponse.send).toHaveBeenLastCalledWith(mockGetLabelModel);
   });
 });

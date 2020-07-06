@@ -152,22 +152,28 @@ describe('test mysqlImageRepository', () => {
   });
 
   describe('test CRUD', () => {
-    const mockPool = {
-      query: jest.fn(),
-      execute: jest.fn(),
-    };
-
-    const repository = new MysqlImageLabelRepository(mockPool);
-
     describe('test add', () => {
+      const mockPool = {
+        query: jest.fn(),
+        execute: jest.fn().mockReturnValue([{ insertId: 1 }]),
+      };
+
+      const repository = new MysqlImageLabelRepository(mockPool);
       it('should invoke INSERT statement with correct parameters', async () => {
-        await repository.add(mockImageLabel);
+        const id = await repository.add(mockImageLabel);
 
         expect(mockPool.execute).toHaveBeenLastCalledWith(expect.anything(), [1, 1, 0, 0, 50, 50]);
+        expect(id).toEqual(1);
       });
     });
 
     describe('test delete', () => {
+      const mockPool = {
+        query: jest.fn(),
+        execute: jest.fn(),
+      };
+      const repository = new MysqlImageLabelRepository(mockPool);
+
       it('should invoke DELETE statement with correct parameters', async () => {
         await repository.delete(1);
 

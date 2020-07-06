@@ -1,4 +1,5 @@
 import { AddImageLabelModel, GetLabelledImagesModel, GetLabellingsModel } from '../domains/imageLabel';
+import { GetImageLabelModel } from '../domains/imageLabel/getImageLabelModel';
 import { NotFoundError } from '../errors/notFound';
 import { imageLabelRepository, imageRepository, labelRepository } from '../infra/database';
 import {
@@ -31,7 +32,7 @@ export const getLabelledImages = async (labelId: number): Promise<GetLabelledIma
   return mapToGetLabelledImagesModel(labelledImages);
 };
 
-export const addImageLabel = async (addImageLabelModel: AddImageLabelModel): Promise<void> => {
+export const addImageLabel = async (addImageLabelModel: AddImageLabelModel): Promise<GetImageLabelModel> => {
   const image = await imageRepository.getById(addImageLabelModel.imageId);
   if (!image) {
     throw new NotFoundError('Image was not found');
@@ -43,7 +44,12 @@ export const addImageLabel = async (addImageLabelModel: AddImageLabelModel): Pro
   }
 
   const imageLabel = mapFromAddImageLabelModel(addImageLabelModel);
-  await imageLabelRepository.add(imageLabel);
+  const imageLabelId = await imageLabelRepository.add(imageLabel);
+
+  return {
+    imageLabelId,
+    ...imageLabel,
+  };
 };
 
 export const deleteImageLabel = async (imageLabelId: number): Promise<void> => {

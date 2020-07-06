@@ -13,9 +13,15 @@ export const getImage = async (imageId: number): Promise<GetImageModel> => {
   return mapToGetImageModel(image);
 };
 
-export const addImage = async (imageModel: AddImageModel): Promise<void> => {
+export const addImage = async (imageModel: AddImageModel): Promise<GetImageModel> => {
   const image = mapFromAddImageModel(imageModel);
-  await imageRepository.add(image);
+  const imageId = await imageRepository.add(image);
+
+  return {
+    ...image,
+    imageId,
+    statusCode: 'Created',
+  };
 };
 
 export const deleteImage = async (imageId: number): Promise<void> => {
