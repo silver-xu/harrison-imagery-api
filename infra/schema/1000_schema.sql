@@ -39,7 +39,7 @@ CREATE TABLE image_label(
   y INT NOT NULL,
   width INT NOT NULL,
   height INT NOT NULL,
-  update_date DATETIME NOT NULL,
+  labelled_date DATETIME NOT NULL,
   FOREIGN KEY (image_id) REFERENCES images(image_id),
   FOREIGN KEY (label_id) REFERENCES labels(label_id)
 );

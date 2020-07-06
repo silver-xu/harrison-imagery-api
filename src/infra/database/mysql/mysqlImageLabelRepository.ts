@@ -47,8 +47,16 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
 
   async add(imageLabel: ImageLabel): Promise<number> {
     const result = (await this.pool.execute(
-      'INSERT INTO image_label (image_id, label_id, x, y, width, height) VALUES (?, ?, ?, ?, ?, ?)',
-      [imageLabel.imageId, imageLabel.labelId, imageLabel.x, imageLabel.y, imageLabel.width, imageLabel.height],
+      'INSERT INTO image_label (image_id, label_id, x, y, width, height, labelled_date) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [
+        imageLabel.imageId,
+        imageLabel.labelId,
+        imageLabel.x,
+        imageLabel.y,
+        imageLabel.width,
+        imageLabel.height,
+        imageLabel.labelledDate,
+      ],
     )) as RowDataPacket[];
 
     if (result.length === 0 || !result[0]['insertId']) {
@@ -109,7 +117,7 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
               image_label.x AS label_x,
               image_label.y AS label_y,
               image_label.width AS label_width,
-              image_label.height as label_height
+              image_label.height as label_height,
               image_label.labelled_date
       FROM image_label      
       INNER JOIN images
