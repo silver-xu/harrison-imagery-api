@@ -4,7 +4,8 @@
   "description": "Boilerplate for typescript projects powered by eslint and prettier",
   "main": "index.js",
   "scripts": {
-    "start": "env NODE_ENV=dev node --inspect=5858 -r ts-node/register ./src/index.ts",
+    "start:ts": "env NODE_ENV=dev node --inspect=5858 -r ts-node/register ./src/index.ts",
+    "start":"yarn build && env NODE_ENV=dev node dist/index.js",
     "start:watch": "nodemon",
     "start:db": "yarn build:db && sudo docker run -p 3306:3306 --name harrison-mysql -e MYSQL_ROOT_PASSWORD=harrison harrison-mysql",
     "build": "tsc",
@@ -61,7 +62,7 @@
     "watch": [
       "src"
     ],
-    "exec": "yarn start",
+    "exec": "yarn start:ts",
     "ext": "ts"
   }
 }
