@@ -18,7 +18,7 @@ The CNN Processor runs asynchronously to train disease classification model base
 
 ## Database
 
-Harrison.AI Imagery API is designed to work with `AWS Aurora 2 (MySQL 5.7)` database. B
+Harrison.AI Imagery API is designed to work with `AWS Aurora 2 (MySQL 5.7)` database. 
 
 ### Entity Relational Diagram
 
