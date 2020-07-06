@@ -9,7 +9,6 @@ import { addInsecureRoutes } from './routes';
 import { addSecureRoutes } from './secureRoutes';
 
 const app = express();
-const port = 8080;
 
 app.use(bodyParser.json());
 addInsecureRoutes(app);
@@ -19,6 +18,4 @@ addSecureRoutes(app);
 app.use(errorLoggerMiddleware);
 app.use(errorHandlerMiddleware);
 
-app.listen(port, () => {
-  console.log(`server started at http://localhost:${port}`);
-});
+export default app;
