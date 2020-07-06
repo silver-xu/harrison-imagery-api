@@ -14,7 +14,8 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
               image_label.x, 
               image_label.y, 
               image_label.width, 
-              image_label.height 
+              image_label.height,
+              image_label.labelled_date
         FROM image_label 
         INNER JOIN images
           ON image_label.image_id = images.image_id
@@ -30,7 +31,7 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
       return undefined;
     }
 
-    const { image_label_id, image_id, label_id, x, y, width, height } = rows[0];
+    const { image_label_id, image_id, label_id, x, y, width, height, labelled_date } = rows[0];
 
     return {
       imageLabelId: image_label_id,
@@ -40,6 +41,7 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
       y,
       width,
       height,
+      labelledDate: labelled_date,
     };
   }
 
@@ -69,7 +71,8 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
               image_label.x, 
               image_label.y, 
               image_label.width, 
-              image_label.height 
+              image_label.height,
+              image_label.labelled_date
       FROM image_label 
       INNER JOIN images
         ON image_label.image_id = images.image_id
@@ -90,6 +93,7 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
       y: row['y'],
       width: row['width'],
       height: row['height'],
+      labelledDate: row['labelled_date'],
     }));
   }
 
@@ -106,6 +110,7 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
               image_label.y AS label_y,
               image_label.width AS label_width,
               image_label.height as label_height
+              image_label.labelled_date
       FROM image_label      
       INNER JOIN images
         ON image_label.image_id = images.image_id
@@ -129,6 +134,7 @@ export class MysqlImageLabelRepository extends BaseMysqlRepository implements Im
       labelY: row['label_y'],
       labelWidth: row['label_width'],
       labelHeight: row['label_height'],
+      labelledDate: row['labelled_date'],
     }));
   }
 }

@@ -3,4 +3,5 @@ export interface LabelPosition {
   y: number;
   width: number;
   height: number;
+  labelledDate: Date;
 }

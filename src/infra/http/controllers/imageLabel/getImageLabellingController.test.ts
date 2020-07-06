@@ -8,6 +8,7 @@ jest.mock('../../../../useCases/imageLabelUseCase');
 
 describe('test getImageLabellingController', () => {
   const mockedImageLabelUseCase = imageLabelUseCase as jest.Mocked<typeof imageLabelUseCase>;
+  const date = new Date();
 
   it('should call next(BadRequestError) if id is not provided', async () => {
     const mockRequest = {
@@ -54,12 +55,14 @@ describe('test getImageLabellingController', () => {
               y: 0,
               width: 25,
               height: 25,
+              labelledDate: date,
             },
             {
               x: 25,
               y: 25,
               width: 25,
               height: 25,
+              labelledDate: date,
             },
           ],
         },
@@ -75,6 +78,7 @@ describe('test getImageLabellingController', () => {
               y: 50,
               width: 25,
               height: 25,
+              labelledDate: date,
             },
           ],
         },

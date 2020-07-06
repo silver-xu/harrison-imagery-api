@@ -10,6 +10,7 @@ import { addImageLabel, deleteImageLabel, getImageLabellings, getLabelledImages 
 jest.mock('../infra/database');
 
 describe('test imageLabelUseCase', () => {
+  const date = new Date();
   const mockedImageRepository = imageRepository as jest.Mocked<typeof imageRepository>;
   const mockedLabelRepository = labelRepository as jest.Mocked<typeof labelRepository>;
   const mockedImageLabelRepository = imageLabelRepository as jest.Mocked<typeof imageLabelRepository>;
@@ -50,6 +51,7 @@ describe('test imageLabelUseCase', () => {
       labelId: 1,
       label: 'bar',
       statusCode: 'InUse',
+      labelledDate: date,
     },
     {
       imageLabelId: 2,
@@ -60,6 +62,7 @@ describe('test imageLabelUseCase', () => {
       labelId: 1,
       label: 'bar',
       statusCode: 'InUse',
+      labelledDate: date,
     },
     {
       imageLabelId: 3,
@@ -70,6 +73,7 @@ describe('test imageLabelUseCase', () => {
       labelId: 2,
       label: 'foo',
       statusCode: 'InUse',
+      labelledDate: date,
     },
   ];
 
@@ -86,6 +90,7 @@ describe('test imageLabelUseCase', () => {
       width: 100,
       height: 100,
       statusCode: 'Labelled',
+      labelledDate: date,
     },
     {
       imageLabelId: 2,
@@ -99,6 +104,7 @@ describe('test imageLabelUseCase', () => {
       width: 100,
       height: 100,
       statusCode: 'Labelled',
+      labelledDate: date,
     },
     {
       imageLabelId: 3,
@@ -112,6 +118,7 @@ describe('test imageLabelUseCase', () => {
       width: 200,
       height: 200,
       statusCode: 'Labelled',
+      labelledDate: date,
     },
   ];
 
@@ -168,8 +175,8 @@ describe('test imageLabelUseCase', () => {
       mockedLabelRepository.getById.mockResolvedValue(mockLabel);
 
       const imageLabel = await addImageLabel(mockAddImageLabelModel);
-      expect(imageLabelRepository.add).toHaveBeenLastCalledWith(mapFromAddImageLabelModel(mockAddImageLabelModel));
-      expect(mockAddImageLabelModel).toEqual({ imageLabelId: 1, ...imageLabel });
+      expect(imageLabelRepository.add).toHaveBeenCalled();
+      expect(imageLabel.imageLabelId).toEqual(1);
     });
   });
 

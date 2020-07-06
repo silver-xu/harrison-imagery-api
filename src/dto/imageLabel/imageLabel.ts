@@ -6,4 +6,5 @@ export interface ImageLabel {
   y: number;
   width: number;
   height: number;
+  labelledDate: Date;
 }

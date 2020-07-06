@@ -7,4 +7,5 @@ export interface LabelledImage extends Image {
   labelY: number;
   labelWidth: number;
   labelHeight: number;
+  labelledDate: Date;
 }

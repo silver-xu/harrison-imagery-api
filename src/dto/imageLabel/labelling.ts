@@ -6,4 +6,5 @@ export interface Labelling extends Label {
   y: number;
   width: number;
   height: number;
+  labelledDate: Date;
 }

@@ -5,6 +5,7 @@ import { LabelledImage } from '../dto/imageLabel/labelledImage';
 export const mapFromAddImageLabelModel = (addImageLabelModel: AddImageLabelModel): ImageLabel => ({
   imageLabelId: 0,
   ...addImageLabelModel,
+  labelledDate: new Date(),
 });
 
 export const mapToGetLabellingsModel = (labellings: Labelling[]): GetLabellingsModel => {
@@ -26,6 +27,7 @@ export const mapToGetLabellingsModel = (labellings: Labelling[]): GetLabellingsM
           y: labelling.y,
           width: labelling.width,
           height: labelling.height,
+          labelledDate: labelling.labelledDate,
         })),
     })),
   };
@@ -53,6 +55,7 @@ export const mapToGetLabelledImagesModel = (labelledImages: LabelledImage[]): Ge
           y: labelledImage.labelY,
           width: labelledImage.labelWidth,
           height: labelledImage.labelHeight,
+          labelledDate: labelledImage.labelledDate,
         })),
     })),
   };

@@ -1,6 +1,8 @@
 import { MysqlImageLabelRepository } from './mysqlImageLabelRepository';
 
 describe('test mysqlImageRepository', () => {
+  const date = new Date();
+
   const mockImageLabelRaw = {
     image_label_id: 1,
     image_id: 1,
@@ -9,6 +11,7 @@ describe('test mysqlImageRepository', () => {
     y: 0,
     width: 50,
     height: 50,
+    labelled_date: date,
   };
 
   const mockImageLabel = {
@@ -19,6 +22,7 @@ describe('test mysqlImageRepository', () => {
     y: 0,
     width: 50,
     height: 50,
+    labelledDate: date,
   };
 
   describe('test getById', () => {

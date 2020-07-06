@@ -2,6 +2,7 @@ import { Labelling } from '../dto/imageLabel';
 import { mapFromAddImageLabelModel, mapToGetLabelledImagesModel, mapToGetLabellingsModel } from './imageLabelMappers';
 
 describe('test imageLabelMappers', () => {
+  const date = new Date();
   describe('test mapFromAddImageLabelModel', () => {
     it('should map from addImageLabelModel to imageLabel', () => {
       const mockAddImageLabelModel = {
@@ -14,10 +15,10 @@ describe('test imageLabelMappers', () => {
       };
 
       const imageLabel = mapFromAddImageLabelModel(mockAddImageLabelModel);
-      expect(imageLabel).toEqual({
-        imageLabelId: 0,
-        ...mockAddImageLabelModel,
-      });
+      const { imageId, labelId, x, y, width, height } = imageLabel;
+
+      expect(imageLabel.imageLabelId).toEqual(0);
+      expect({ imageId, labelId, x, y, width, height }).toEqual(mockAddImageLabelModel);
     });
   });
 
@@ -33,6 +34,7 @@ describe('test imageLabelMappers', () => {
           labelId: 1,
           label: 'bar',
           statusCode: 'InUse',
+          labelledDate: date,
         },
         {
           imageLabelId: 2,
@@ -43,6 +45,7 @@ describe('test imageLabelMappers', () => {
           labelId: 1,
           label: 'bar',
           statusCode: 'InUse',
+          labelledDate: date,
         },
         {
           imageLabelId: 3,
@@ -53,6 +56,7 @@ describe('test imageLabelMappers', () => {
           labelId: 2,
           label: 'foo',
           statusCode: 'InUse',
+          labelledDate: date,
         },
       ];
 
@@ -72,12 +76,14 @@ describe('test imageLabelMappers', () => {
                 y: 0,
                 width: 25,
                 height: 25,
+                labelledDate: date,
               },
               {
                 x: 25,
                 y: 25,
                 width: 25,
                 height: 25,
+                labelledDate: date,
               },
             ],
           },
@@ -93,6 +99,7 @@ describe('test imageLabelMappers', () => {
                 y: 50,
                 width: 25,
                 height: 25,
+                labelledDate: date,
               },
             ],
           },
@@ -116,6 +123,7 @@ describe('test imageLabelMappers', () => {
           width: 100,
           height: 100,
           statusCode: 'Labelled',
+          labelledDate: date,
         },
         {
           imageLabelId: 2,
@@ -129,6 +137,7 @@ describe('test imageLabelMappers', () => {
           width: 100,
           height: 100,
           statusCode: 'Labelled',
+          labelledDate: date,
         },
         {
           imageLabelId: 3,
@@ -142,6 +151,7 @@ describe('test imageLabelMappers', () => {
           width: 200,
           height: 200,
           statusCode: 'Labelled',
+          labelledDate: date,
         },
       ];
 
@@ -163,12 +173,14 @@ describe('test imageLabelMappers', () => {
                 y: 0,
                 width: 25,
                 height: 25,
+                labelledDate: date,
               },
               {
                 x: 25,
                 y: 25,
                 width: 25,
                 height: 25,
+                labelledDate: date,
               },
             ],
           },
@@ -186,6 +198,7 @@ describe('test imageLabelMappers', () => {
                 y: 50,
                 width: 50,
                 height: 50,
+                labelledDate: date,
               },
             ],
           },
