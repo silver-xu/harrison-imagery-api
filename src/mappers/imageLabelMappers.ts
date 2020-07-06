@@ -1,3 +1,4 @@
+import { ImageStatusCodes } from '../domains/image';
 import { AddImageLabelModel, GetLabelledImagesModel, GetLabellingsModel } from '../domains/imageLabel';
 import { ImageLabel, Labelling } from '../dto/imageLabel';
 import { LabelledImage } from '../dto/imageLabel/labelledImage';
@@ -44,7 +45,7 @@ export const mapToGetLabelledImagesModel = (labelledImages: LabelledImage[]): Ge
       image: {
         imageId: distinctLabelImage.imageId,
         imagePath: distinctLabelImage.imagePath,
-        statusCode: distinctLabelImage.statusCode,
+        statusCode: ImageStatusCodes[distinctLabelImage.statusCode],
         width: distinctLabelImage.width,
         height: distinctLabelImage.height,
       },

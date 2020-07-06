@@ -1,3 +1,9 @@
-import { Image } from '../../dto/image';
+import { ImageStatusCodes } from './imageStatusCodes';
 
-export interface GetImageModel extends Image {}
+export interface GetImageModel {
+  imageId: number;
+  imagePath: string;
+  width: number;
+  height: number;
+  statusCode: ImageStatusCodes;
+}

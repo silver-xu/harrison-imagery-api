@@ -1,4 +1,4 @@
-import { AddImageModel, GetImageModel, UpdateImageModel } from '../domains/image';
+import { AddImageModel, GetImageModel, ImageStatusCodes, UpdateImageModel } from '../domains/image';
 import { ImageSearchCriteriaModel } from '../domains/image/imageSearchCriteriaModel';
 import { NotFoundError } from '../errors/notFound';
 import { imageRepository } from '../infra/database';
@@ -26,7 +26,7 @@ export const addImage = async (imageModel: AddImageModel): Promise<GetImageModel
   return {
     ...image,
     imageId,
-    statusCode: 'Created',
+    statusCode: ImageStatusCodes.Created,
   };
 };
 

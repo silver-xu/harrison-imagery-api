@@ -1,4 +1,4 @@
-import { AddLabelModel, GetLabelModel, UpdateLabelModel } from '../domains/label';
+import { AddLabelModel, GetLabelModel, LabelStatusCodes, UpdateLabelModel } from '../domains/label';
 import { NotFoundError } from '../errors/notFound';
 import { labelRepository } from '../infra/database';
 import { mapFromAddLabelModel, mapFromUpdateLabelModel, mapToGetLabelModel } from '../mappers/labelMappers';
@@ -20,7 +20,7 @@ export const addLabel = async (labelModel: AddLabelModel): Promise<GetLabelModel
   return {
     ...label,
     labelId,
-    statusCode: 'InUse',
+    statusCode: LabelStatusCodes.InUse,
   };
 };
 

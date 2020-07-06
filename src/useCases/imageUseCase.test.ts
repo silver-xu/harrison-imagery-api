@@ -1,3 +1,4 @@
+import { ImageStatusCodes } from '../domains/image';
 import { NotFoundError } from '../errors/notFound';
 import { imageRepository } from '../infra/database';
 import { mapFromAddImageModel, mapFromUpdateImageModel } from '../mappers/imageMappers';
@@ -13,14 +14,14 @@ describe('test imageUseCase', () => {
     imagePath: 'http://example.com',
     width: 100,
     height: 100,
-    statusCode: 'Create',
+    statusCode: 'Created',
   };
 
   const mockUpdateImageModel = {
     imagePath: 'http://example.com',
     width: 100,
     height: 100,
-    statusCode: 'Create',
+    statusCode: ImageStatusCodes.Created,
   };
 
   describe('test getImage', () => {

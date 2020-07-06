@@ -2,7 +2,13 @@ import { AddImageModel, GetImageModel, ImageStatusCodes, UpdateImageModel } from
 import { ImageSearchCriteriaModel } from '../domains/image/imageSearchCriteriaModel';
 import { Image, SearchCriteria } from '../dto/image';
 
-export const mapToGetImageModel = (image: Image): GetImageModel => image;
+export const mapToGetImageModel = ({ imageId, imagePath, width, height, statusCode }: Image): GetImageModel => ({
+  imageId,
+  imagePath,
+  width,
+  height,
+  statusCode: ImageStatusCodes[statusCode],
+});
 
 export const mapFromAddImageModel = (addImageModel: AddImageModel): Image => ({
   ...addImageModel,

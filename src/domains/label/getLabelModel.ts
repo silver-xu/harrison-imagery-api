@@ -1,3 +1,7 @@
-import { Label } from '../../dto/label';
+import { LabelStatusCodes } from './labelStatusCodes';
 
-export interface GetLabelModel extends Label {}
+export interface GetLabelModel {
+  labelId: number;
+  label: string;
+  statusCode: LabelStatusCodes;
+}

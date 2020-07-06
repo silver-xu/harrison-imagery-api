@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { ImageStatusCodes } from '../../../../domains/image';
 import { BadRequestError } from '../../../../errors/badRequest';
 import * as imageUseCase from '../../../../useCases/imageUseCase';
 import { getImageController } from '.';
@@ -44,7 +45,7 @@ describe('test getImageController', () => {
       imagePath: 'http://example.com',
       width: 100,
       height: 100,
-      statusCode: 'Created',
+      statusCode: ImageStatusCodes.Created,
     };
     mockedImageUseCase.getImage.mockResolvedValue(mockGetImageModel);
 
