@@ -4,10 +4,65 @@ import {
   addImageController,
   deleteImageController,
   getImageController,
+  searchImageController,
   updateImageController,
 } from '../controllers/image';
 
 export const addImageRoutes = (app: Express): Express => {
+  /**
+   * @swagger
+   * /v1/image/search:
+   *    get:
+   *      tags:
+   *        - Image
+   *      summary: Returns images from Harrison.ai system matching specified criteria
+   *      consumes:
+   *        - application/json*
+   *      parameters:
+   *        - name: labelId
+   *          description: labelId
+   *          in: query
+   *          required: false
+   *          type: number
+   *        - name: startDate
+   *          description: startDate
+   *          in: query
+   *          required: false
+   *          type: string
+   *        - name: endDate
+   *          description: endDate
+   *          in: query
+   *          required: false
+   *          type: string
+   *        - name: imageStatusCode
+   *          description: imageStatusCode
+   *          in: query
+   *          required: false
+   *          type: string
+   *          enum:
+   *            - Created
+   *            - Labelled
+   *        - name: x-auth
+   *          description: authorization header
+   *          in: header
+   *          required: true
+   *          type: string
+   *      responses:
+   *        200:
+   *          description: Deserialized image object
+   *        400:
+   *          description: Unauthorized access
+   *        401:
+   *          description: Bad Request
+   *        404:
+   *          description: Image does not exist
+   *        500:
+   *          description: Internal Error
+   */
+  app.get('/v1/image/search', (req, res, next) => {
+    searchImageController(req, res, next);
+  });
+
   /**
    * @swagger
    * /v1/image/{id}:

@@ -1,4 +1,10 @@
-import { mapFromAddImageModel, mapFromUpdateImageModel, mapToGetImageModel } from './imageMappers';
+import { ImageStatusCodes } from '../domains/image';
+import {
+  mapFromAddImageModel,
+  mapFromImageSearchCriteriaModel,
+  mapFromUpdateImageModel,
+  mapToGetImageModel,
+} from './imageMappers';
 
 describe('test imageMappers', () => {
   const mockImage = {
@@ -36,7 +42,7 @@ describe('test imageMappers', () => {
   });
 
   describe('test mapFromUpdateImageModel', () => {
-    it('should map image to updateImageModel', () => {
+    it('should map updateImageModel to image ', () => {
       const mockUpdateImageModel = {
         imagePath: 'http://example.com',
         width: 100,
@@ -44,9 +50,33 @@ describe('test imageMappers', () => {
         statusCode: 'Created',
       };
 
-      const updateImageModel = mapFromUpdateImageModel(1, mockUpdateImageModel);
+      const image = mapFromUpdateImageModel(1, mockUpdateImageModel);
 
-      expect(updateImageModel).toEqual(updateImageModel);
+      expect({ imageId: 1, ...mockUpdateImageModel }).toEqual(image);
+    });
+  });
+
+  describe('test mapFromImageSearchCriteriaModel', () => {
+    it('should map imageSearchCriteriaModel to searchCriteria', () => {
+      const date = new Date();
+
+      const mockSearchCriteria = {
+        labelId: 1,
+        searchDates: {
+          startDate: date,
+          endDate: date,
+        },
+        imageStatusCode: ImageStatusCodes.Created,
+      };
+
+      const searchCriteria = mapFromImageSearchCriteriaModel(mockSearchCriteria);
+
+      expect(searchCriteria).toEqual({
+        labelId: 1,
+        startDate: date,
+        endDate: date,
+        imageStatusCode: 'Created',
+      });
     });
   });
 });

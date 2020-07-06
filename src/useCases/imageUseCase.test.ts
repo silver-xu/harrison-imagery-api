@@ -1,7 +1,7 @@
 import { NotFoundError } from '../errors/notFound';
 import { imageRepository } from '../infra/database';
 import { mapFromAddImageModel, mapFromUpdateImageModel } from '../mappers/imageMappers';
-import { addImage, deleteImage, getImage, updateImage } from './imageUseCase';
+import { addImage, deleteImage, getImage, searchImages, updateImage } from './imageUseCase';
 
 jest.mock('../infra/database');
 
@@ -34,6 +34,14 @@ describe('test imageUseCase', () => {
       mockedImageRepository.getById.mockResolvedValue(mockImage);
       const image = await getImage(1);
       expect(image).toEqual(mockImage);
+    });
+  });
+
+  describe('test searchImage', () => {
+    it('should return getImageModel if imageRepository.search is returning images', async () => {
+      mockedImageRepository.search.mockResolvedValue([mockImage]);
+      const image = await searchImages({});
+      expect(image).toEqual([mockImage]);
     });
   });
 

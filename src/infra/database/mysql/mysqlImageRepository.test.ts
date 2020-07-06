@@ -45,6 +45,37 @@ describe('test mysqlImageRepository', () => {
     });
   });
 
+  describe('test search', () => {
+    it('should return matching images while there is any', async () => {
+      const date = new Date();
+      const mockPool = {
+        query: jest.fn().mockResolvedValue([[mockImageRaw]]),
+        execute: jest.fn(),
+      };
+
+      const repository = new MysqlImageRepository(mockPool);
+      const searchCriteria = {
+        labelId: 1,
+        startDate: date,
+        endDate: date,
+        imageStatusCode: 'foo',
+      };
+      const image = await repository.search(searchCriteria);
+
+      expect(image).toEqual([mockImage]);
+      expect(mockPool.query).toHaveBeenCalledWith(expect.anything(), [
+        searchCriteria.labelId,
+        searchCriteria.labelId,
+        searchCriteria.startDate,
+        searchCriteria.endDate,
+        searchCriteria.startDate,
+        searchCriteria.endDate,
+        searchCriteria.imageStatusCode,
+        searchCriteria.imageStatusCode,
+      ]);
+    });
+  });
+
   describe('test CRUD', () => {
     describe('test add', () => {
       const mockPool = {

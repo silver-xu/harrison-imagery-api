@@ -166,7 +166,15 @@ describe('test mysqlImageRepository', () => {
       it('should invoke INSERT statement with correct parameters', async () => {
         const id = await repository.add(mockImageLabel);
 
-        expect(mockPool.execute).toHaveBeenLastCalledWith(expect.anything(), [1, 1, 0, 0, 50, 50]);
+        expect(mockPool.execute).toHaveBeenLastCalledWith(expect.anything(), [
+          mockImageLabel.imageId,
+          mockImageLabel.labelId,
+          mockImageLabel.x,
+          mockImageLabel.y,
+          mockImageLabel.width,
+          mockImageLabel.height,
+          mockImageLabel.labelledDate,
+        ]);
         expect(id).toEqual(1);
       });
     });

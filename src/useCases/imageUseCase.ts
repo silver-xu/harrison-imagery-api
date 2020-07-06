@@ -1,7 +1,13 @@
 import { AddImageModel, GetImageModel, UpdateImageModel } from '../domains/image';
+import { ImageSearchCriteriaModel } from '../domains/image/imageSearchCriteriaModel';
 import { NotFoundError } from '../errors/notFound';
 import { imageRepository } from '../infra/database';
-import { mapFromAddImageModel, mapFromUpdateImageModel, mapToGetImageModel } from '../mappers/imageMappers';
+import {
+  mapFromAddImageModel,
+  mapFromImageSearchCriteriaModel,
+  mapFromUpdateImageModel,
+  mapToGetImageModel,
+} from '../mappers/imageMappers';
 
 export const getImage = async (imageId: number): Promise<GetImageModel> => {
   const image = await imageRepository.getById(imageId);
@@ -22,6 +28,13 @@ export const addImage = async (imageModel: AddImageModel): Promise<GetImageModel
     imageId,
     statusCode: 'Created',
   };
+};
+
+export const searchImages = async (imageSearchCriteriaModel: ImageSearchCriteriaModel): Promise<GetImageModel[]> => {
+  const searchCritera = mapFromImageSearchCriteriaModel(imageSearchCriteriaModel);
+  const images = await imageRepository.search(searchCritera);
+
+  return images.map((image) => mapToGetImageModel(image));
 };
 
 export const deleteImage = async (imageId: number): Promise<void> => {
