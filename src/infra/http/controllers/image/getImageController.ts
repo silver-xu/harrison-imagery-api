@@ -21,6 +21,7 @@ export const getImageController = async (req: Request, res: Response, next: Next
     const image = await getImage(imageId);
 
     res.send(image);
+    next();
   } catch (error) {
     next(error);
   }

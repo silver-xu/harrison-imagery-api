@@ -3,7 +3,8 @@ import * as express from 'express';
 
 import { authMiddleware } from './middlewares/auth';
 import { errorHandlerMiddleware } from './middlewares/errorHandler';
-import { loggerMiddleware } from './middlewares/logger';
+import { errorLoggerMiddleware } from './middlewares/errorLogger';
+import { httpLoggerMiddleware } from './middlewares/httpLogger';
 import { addInsecureRoutes } from './routes';
 import { addSecureRoutes } from './secureRoutes';
 
@@ -11,12 +12,11 @@ const app = express();
 const port = 8080;
 
 app.use(bodyParser.json());
-
 addInsecureRoutes(app);
-
 app.use(authMiddleware);
+app.use(httpLoggerMiddleware);
 addSecureRoutes(app);
-app.use(loggerMiddleware);
+app.use(errorLoggerMiddleware);
 app.use(errorHandlerMiddleware);
 
 app.listen(port, () => {
