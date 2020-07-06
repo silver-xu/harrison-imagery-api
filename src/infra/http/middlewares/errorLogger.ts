@@ -14,6 +14,7 @@ export const errorLoggerMiddleware = async (error: Error, req: Request, res: Res
 
     const errorLog = {
       error: {
+        timestamp: new Date(Date.now()),
         userId: userId ?? 'Anonymous',
         message: redactedMessage,
         stackTrace: redactedStackTrace,

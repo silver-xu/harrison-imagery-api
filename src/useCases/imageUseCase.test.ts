@@ -1,9 +1,9 @@
 import { ImageStatusCodes } from '../domains/image';
+import { BadRequestError } from '../errors/badRequest';
 import { NotFoundError } from '../errors/notFound';
 import { imageRepository } from '../infra/database';
 import { mapFromAddImageModel, mapFromUpdateImageModel } from '../mappers/imageMappers';
 import { addImage, deleteImage, getImage, searchImages, updateImage } from './imageUseCase';
-import { BadRequestError } from '../errors/badRequest';
 
 jest.mock('../infra/database');
 

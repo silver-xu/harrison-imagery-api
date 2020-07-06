@@ -7,12 +7,14 @@ describe('test httpLoggerMiddleware', () => {
 
   console.log = jest.fn();
   console.error = jest.fn();
+  Date.now = jest.fn().mockReturnValue(0);
 
   describe('when no error has been passed', () => {
     it('should log actual userId if exists in locals', async () => {
       const mockRequest = {
         method: 'foo',
         path: 'bar',
+        get: jest.fn().mockReturnValue('foobar') as unknown,
       } as Request;
       const mockResponse = {
         locals: {
@@ -28,6 +30,8 @@ describe('test httpLoggerMiddleware', () => {
           userId: 1,
           method: 'foo',
           path: 'bar',
+          userAgent: 'foobar',
+          timestamp: new Date(Date.now()),
         },
       });
     });
@@ -36,6 +40,7 @@ describe('test httpLoggerMiddleware', () => {
       const mockRequest = {
         method: 'foo',
         path: 'bar',
+        get: jest.fn().mockReturnValue('foobar') as unknown,
       } as Request;
       const mockResponse = {
         locals: {
@@ -49,6 +54,8 @@ describe('test httpLoggerMiddleware', () => {
           userId: 'Anonymous',
           method: 'foo',
           path: 'bar',
+          userAgent: 'foobar',
+          timestamp: new Date(Date.now()),
         },
       });
     });

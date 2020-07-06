@@ -7,6 +7,7 @@ describe('test errorLoggerMiddleware', () => {
 
   console.log = jest.fn();
   console.error = jest.fn();
+  Date.now = jest.fn().mockReturnValue(0);
 
   describe('when an error has been passed', () => {
     it('should log logEntry and error with actual userId if exists in locals', async () => {
@@ -29,6 +30,7 @@ describe('test errorLoggerMiddleware', () => {
           userId: 1,
           message: 'foobar',
           stackTrace: expect.anything(),
+          timestamp: new Date(Date.now()),
         },
       });
     });
@@ -51,6 +53,7 @@ describe('test errorLoggerMiddleware', () => {
           userId: 'Anonymous',
           message: 'PERSON_NAME',
           stackTrace: expect.anything(),
+          timestamp: new Date(Date.now()),
         },
       });
     });

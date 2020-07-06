@@ -1,5 +1,6 @@
 import { AddImageModel, GetImageModel, ImageStatusCodes, UpdateImageModel } from '../domains/image';
 import { ImageSearchCriteriaModel } from '../domains/image/imageSearchCriteriaModel';
+import { BadRequestError } from '../errors/badRequest';
 import { NotFoundError } from '../errors/notFound';
 import { imageRepository } from '../infra/database';
 import {
@@ -8,7 +9,6 @@ import {
   mapFromUpdateImageModel,
   mapToGetImageModel,
 } from '../mappers/imageMappers';
-import { BadRequestError } from '../errors/badRequest';
 
 export const getImage = async (imageId: number): Promise<GetImageModel> => {
   const image = await imageRepository.getById(imageId);

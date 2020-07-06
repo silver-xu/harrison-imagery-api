@@ -7,9 +7,12 @@ export const httpLoggerMiddleware = async (req: Request, res: Response, next: Ne
 
   const log = {
     logEntry: {
+      timestamp: new Date(Date.now()),
       userId: userId ?? 'Anonymous',
       method: req.method,
       path: req.path,
+      url: req.originalUrl,
+      userAgent: req.get('user-agent'),
     },
   };
 
