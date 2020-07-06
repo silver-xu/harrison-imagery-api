@@ -13,9 +13,23 @@ describe('test authMiddleware', () => {
     jest.resetAllMocks();
   });
 
+  it('should call next() if requesting static resource', async () => {
+    const mockRequest = {
+      headers: {},
+      path: '/static/foobar',
+    } as Request;
+    const mockResponse = {} as Response;
+    const next = jest.fn();
+
+    await authMiddleware(mockRequest, mockResponse, next);
+
+    expect(next).toHaveBeenLastCalledWith();
+  });
+
   it('should call next(InvalidTokenError) if token not in header', async () => {
     const mockRequest = {
       headers: {},
+      path: '/',
     } as Request;
     const mockResponse = {} as Response;
     const next = jest.fn();
@@ -35,6 +49,7 @@ describe('test authMiddleware', () => {
       headers: {
         'x-auth': 'abc',
       } as unknown,
+      path: '/',
     } as Request;
 
     const mockResponse = {} as Response;
@@ -55,6 +70,7 @@ describe('test authMiddleware', () => {
       headers: {
         'x-auth': 'abc',
       } as unknown,
+      path: '/',
     } as Request;
 
     const mockResponse = {} as Response;
@@ -75,6 +91,7 @@ describe('test authMiddleware', () => {
       headers: {
         'x-auth': 'abc',
       } as unknown,
+      path: '/',
     } as Request;
 
     const mockResponse = {

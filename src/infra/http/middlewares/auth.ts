@@ -5,6 +5,11 @@ import { verifyToken } from '../../../useCases/authUseCase';
 import { Next } from '../types/next';
 
 export const authMiddleware = async (req: Request, res: Response, next: Next): Promise<void> => {
+  const isRequestStaticResource = req.path.startsWith('/static/');
+  if (isRequestStaticResource) {
+    return next();
+  }
+
   const authToken = req.headers['x-auth'] as string;
 
   let error;
