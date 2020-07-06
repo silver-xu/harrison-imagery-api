@@ -6,13 +6,7 @@ import { addImage } from '../../../../useCases/imageUseCase';
 import { Next } from '../../types/next';
 
 const isRequestValid = (image: AddImageModel): boolean =>
-  image.imagePath &&
-  image.height &&
-  image.width &&
-  !isNaN(image.width) &&
-  !isNaN(image.height) &&
-  image.height > 0 &&
-  image.width > 0;
+  image.imagePath && !isNaN(image.width) && !isNaN(image.height) && image.height > 0 && image.width > 0;
 
 export const addImageController = async (req: Request, res: Response, next: Next): Promise<void> => {
   try {

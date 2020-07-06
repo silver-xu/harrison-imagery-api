@@ -3,6 +3,7 @@ module.exports = {
   transform: { '\\.ts$': ['ts-jest'] },
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.{ts,js}'],
+  coveragePathIgnorePatterns: ['dto', 'routes', 'secureRoutes', 'swagger', 'index'],
   coverageThreshold: {
     global: {
       branches: 80,

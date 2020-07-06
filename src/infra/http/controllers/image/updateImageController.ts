@@ -7,8 +7,6 @@ import { Next } from '../../types/next';
 
 const isRequestBodyValid = (image: UpdateImageModel): boolean =>
   image.imagePath &&
-  image.width &&
-  image.height &&
   image.statusCode &&
   Object.keys(ImageStatusCodes).includes(image.statusCode) &&
   !isNaN(image.width) &&

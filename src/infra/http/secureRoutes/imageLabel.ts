@@ -1,25 +1,22 @@
 import { Express } from 'express';
 
-import {
-  addLabelController,
-  deleteLabelController,
-  getLabelController,
-  updateLabelController,
-} from '../controllers/label';
+import { addImageLabelController, deleteImageLabelController } from '../controllers/imageLabel';
+import { getImageLabellingController } from '../controllers/imageLabel/getImageLabellingController';
+import { getLabelledImagesController } from '../controllers/imageLabel/getLabelledImagesController';
 
-export const addLabelRoutes = (app: Express): Express => {
+export const addImageLabelRoutes = (app: Express): Express => {
   /**
    * @swagger
-   * /v1/label/{id}:
+   * /v1/image/{id}/label:
    *    get:
    *      tags:
-   *        - Label
-   *      summary: Returns a label from Harrison.ai system
+   *        - Image Label
+   *      summary: Returns all labels assigned to an image from Harrison.ai system
    *      consumes:
-   *        - application/json
+   *        - application/json*
    *      parameters:
    *        - name: id
-   *          description: label id
+   *          description: image id
    *          in: path
    *          required: true
    *          type: number
@@ -30,7 +27,43 @@ export const addLabelRoutes = (app: Express): Express => {
    *          type: string
    *      responses:
    *        200:
-   *          description: Deserialized label object
+   *          description: Deserialized image labelling object
+   *        400:
+   *          description: Unauthorized access
+   *        401:
+   *          description: Bad Request
+   *        404:
+   *          description: Image does not exist
+   *        500:
+   *          description: Internal Error
+   */
+  app.get('/v1/image/:id/label', (req, res, next) => {
+    getImageLabellingController(req, res, next);
+  });
+
+  /**
+   * @swagger
+   * /v1/label/{id}/image:
+   *    get:
+   *      tags:
+   *        - Image Label
+   *      summary: Returns all images the label assigned to from Harrison.ai system
+   *      consumes:
+   *        - application/json*
+   *      parameters:
+   *        - name: id
+   *          description: image id
+   *          in: path
+   *          required: true
+   *          type: number
+   *        - name: x-auth
+   *          description: authorization header
+   *          in: header
+   *          required: true
+   *          type: string
+   *      responses:
+   *        200:
+   *          description: Deserialized images object with labelling position
    *        400:
    *          description: Unauthorized access
    *        401:
@@ -40,27 +73,37 @@ export const addLabelRoutes = (app: Express): Express => {
    *        500:
    *          description: Internal Error
    */
-  app.get('/v1/label/:id', (req, res, next) => {
-    getLabelController(req, res, next);
+  app.get('/v1/label/:id/image', (req, res, next) => {
+    getLabelledImagesController(req, res, next);
   });
 
   /**
    * @swagger
-   * /v1/label/:
+   * /v1/image-label:
    *    post:
    *      tags:
-   *        - Label
-   *      summary: Creating a label in Harrison.ai system
+   *        - Image Label
+   *      summary: Adding an image label in Harrison.ai system
    *      consumes:
-   *        - application/json
+   *        - application/json*
    *      requestBody:
    *        content:
    *          application/json:
    *            schema:
    *              type: object
    *              properties:
-   *                label:
-   *                  type: string
+   *                imageId:
+   *                  type: number
+   *                labelId:
+   *                  type: number
+   *                x:
+   *                  type: number
+   *                y:
+   *                  type: number
+   *                width:
+   *                  type: number
+   *                height:
+   *                  type: number
    *      parameters:
    *        - name: x-auth
    *          description: authorization header
@@ -77,71 +120,22 @@ export const addLabelRoutes = (app: Express): Express => {
    *        500:
    *          description: Internal Error
    */
-  app.post('/v1/label', (req, res, next) => {
-    addLabelController(req, res, next);
+  app.post('/v1/image-label', (req, res, next) => {
+    addImageLabelController(req, res, next);
   });
 
   /**
    * @swagger
-   * /v1/label/{id}:
-   *    put:
-   *      tags:
-   *        - Label
-   *      summary: Updating a label in Harrison.ai system
-   *      consumes:
-   *        - application/json
-   *      requestBody:
-   *        content:
-   *          application/json:
-   *            schema:
-   *              type: object
-   *              properties:
-   *                label:
-   *                  type: string
-   *                statusCode:
-   *                  type: string
-   *                  enum:
-   *                    - InUse
-   *                    - Deleted
-   *      parameters:
-   *        - name: id
-   *          description: label id
-   *          in: path
-   *          required: true
-   *          type: number
-   *        - name: x-auth
-   *          description: authorization header
-   *          in: header
-   *          required: true
-   *          type: string
-   *      responses:
-   *        200:
-   *          description: Ok
-   *        400:
-   *          description: Unauthorized access
-   *        401:
-   *          description: Bad Request
-   *        404:
-   *          description: Label does not exist
-   *        500:
-   *          description: Internal Error
-   */
-  app.put('/v1/label/:id', (req, res, next) => {
-    updateLabelController(req, res, next);
-  });
-
-  /**
-   * @swagger
-   * /v1/label/{id}:
+   * /v1/label-label/{id}:
    *    delete:
    *      tags:
-   *        - Label
-   *      summary: Deletes a label from Harrison.ai system
+   *        - Image Label
+   *      summary: Deletes an image label from Harrison.ai system
    *      consumes:
    *        - application/json
    *      parameters:
    *        - name: id
-   *          description: label id
+   *          description: image label id
    *          in: path
    *          required: true
    *          type: number
@@ -162,8 +156,8 @@ export const addLabelRoutes = (app: Express): Express => {
    *        500:
    *          description: Internal Error
    */
-  app.delete('/v1/label/:id', (req, res, next) => {
-    deleteLabelController(req, res, next);
+  app.delete('/v1/image-label/:id', (req, res, next) => {
+    deleteImageLabelController(req, res, next);
   });
 
   return app;

@@ -4,8 +4,8 @@ const options = {
   definition: {
     openapi: '3.0.1',
     info: {
-      title: 'Harrison.ai Challenge API',
-      description: 'Code challenge provided by Harrison.ai and completed by Silver Xu',
+      title: 'Harrison.ai Imagery API',
+      description: 'Harrison.ai Imagery API to support AI powered disease image classifications',
       version: '1.0.0',
       license: {
         name: 'MIT',
@@ -19,7 +19,7 @@ const options = {
     },
   },
   basePath: '/',
-  apis: ['./dist/infra/http/secureRoutes/image.js', './dist/infra/http/secureRoutes/label.js'],
+  apis: ['./dist/infra/http/secureRoutes/*.js'],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);
