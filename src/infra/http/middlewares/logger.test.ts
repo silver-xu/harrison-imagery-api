@@ -4,11 +4,12 @@ import { loggerMiddleware } from './logger';
 
 describe('test loggerMiddleware', () => {
   const next = jest.fn();
+
   console.log = jest.fn();
   console.error = jest.fn();
 
   describe('when no error has been passed', () => {
-    it('should log actual userId if exists in locals', () => {
+    it('should log actual userId if exists in locals', async () => {
       const mockRequest = {
         method: 'foo',
         path: 'bar',
@@ -21,7 +22,7 @@ describe('test loggerMiddleware', () => {
         },
       } as Response;
 
-      loggerMiddleware(undefined, mockRequest, mockResponse, next);
+      await loggerMiddleware(undefined, mockRequest, mockResponse, next);
       expect(console.log).toHaveBeenLastCalledWith({
         logEntry: {
           userId: 1,
@@ -31,7 +32,7 @@ describe('test loggerMiddleware', () => {
       });
     });
 
-    it('should log Anonymous as userId if userId does not exist in locals', () => {
+    it('should log Anonymous as userId if userId does not exist in locals', async () => {
       const mockRequest = {
         method: 'foo',
         path: 'bar',
@@ -42,7 +43,7 @@ describe('test loggerMiddleware', () => {
         },
       } as Response;
 
-      loggerMiddleware(undefined, mockRequest, mockResponse, next);
+      await loggerMiddleware(undefined, mockRequest, mockResponse, next);
       expect(console.log).toHaveBeenLastCalledWith({
         logEntry: {
           userId: 'Anonymous',
@@ -54,7 +55,7 @@ describe('test loggerMiddleware', () => {
   });
 
   describe('when an error has been passed', () => {
-    it('should log logEntry and error with actual userId if exists in locals', () => {
+    it('should log logEntry and error with actual userId if exists in locals', async () => {
       const mockRequest = {
         method: 'foo',
         path: 'bar',
@@ -67,7 +68,7 @@ describe('test loggerMiddleware', () => {
         },
       } as Response;
 
-      loggerMiddleware(new Error('foobar'), mockRequest, mockResponse, next);
+      await loggerMiddleware(new Error('foobar'), mockRequest, mockResponse, next);
       expect(console.log).toHaveBeenLastCalledWith({
         logEntry: {
           userId: 1,
@@ -85,7 +86,7 @@ describe('test loggerMiddleware', () => {
       });
     });
 
-    it('should log logEntry and error with anonymous if userId does not exist in locals', () => {
+    it('should log redacted logEntry and error with anonymous if userId does not exist in locals', async () => {
       const mockRequest = {
         method: 'foo',
         path: 'bar',
@@ -96,7 +97,7 @@ describe('test loggerMiddleware', () => {
         },
       } as Response;
 
-      loggerMiddleware(new Error('foobar'), mockRequest, mockResponse, next);
+      await loggerMiddleware(new Error('David'), mockRequest, mockResponse, next);
       expect(console.log).toHaveBeenLastCalledWith({
         logEntry: {
           userId: 'Anonymous',
@@ -108,7 +109,7 @@ describe('test loggerMiddleware', () => {
       expect(console.error).toHaveBeenLastCalledWith({
         error: {
           userId: 'Anonymous',
-          message: 'foobar',
+          message: 'PERSON_NAME',
           stackTrace: expect.anything(),
         },
       });
