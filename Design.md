@@ -18,7 +18,7 @@ The CNN Processor runs asynchronously to train disease classification model base
 
 ## Database
 
-Harrison.AI Imagery API is designed to work with `AWS Aurora 2 (MySQL 5.7)` database. 
+Harrison.AI Imagery API is designed to work with `AWS Aurora 2 (MySQL 5.7)` database.
 
 ### Entity Relational Diagram
 
@@ -26,11 +26,19 @@ Harrison.AI Imagery API is designed to work with `AWS Aurora 2 (MySQL 5.7)` data
 
 In local environment the database runs in a `Docker` container with `MySQL 5.7` image. Rebuilding the docker image will lose all custom data.
 
+## Codebase
+
+Imagery API is implemented with Typescript and Express.js. The main architecture of code base is heavly inspired by the [`Clean Architecture`](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) for better separation of concerns and simple substitution of Database layer and http layer in the future.
+
+<img src="https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg"/>
+
+GraphQL could also be a great alternative for REST however since most of the API functions are CRUD we won't take too much advantage by using GraphQL as its main strength is in the Queries space.
+
 ## Authentication
 
-The Imagery API employs API Key Authentication. The key issuing is currently mocked and in the real world should be managed by a seperate service, ideally by a mature cloud product such as `Auth0`. When the local database server starts, the api key `3fbc8c169a574a11a8b4697809419a1c` is automatically issued for userId `1` and will last for 8 hours.
+The Imagery API employs API Key Authentication. The key issuing is currently mocked and in the real world should be managed by a seperate service, ideally by a mature cloud product such as `Auth0` and stored into another secured storage.
 
-The key will need to be extended manually after expiry.
+When the local database server starts, the api key `3fbc8c169a574a11a8b4697809419a1c` is automatically issued for userId `1` and will last for 8 hours. The key will need to be extended manually after expiry.
 
 ## Deployment
 
