@@ -10,6 +10,11 @@ import {
   mapToGetImageModel,
 } from '../mappers/imageMappers';
 
+export const listImages = async (): Promise<GetImageModel[]> => {
+  const images = await imageRepository.getAll();
+  return images.map((image) => mapToGetImageModel(image));
+};
+
 export const getImage = async (imageId: number): Promise<GetImageModel> => {
   const image = await imageRepository.getById(imageId);
 

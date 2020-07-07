@@ -17,6 +17,20 @@ describe('test mysqlImageRepository', () => {
     statusCode: 'Created',
   };
 
+  describe('test getAll', () => {
+    it('should return images', async () => {
+      const mockPool = {
+        query: jest.fn().mockResolvedValue([[mockImageRaw]]),
+        execute: jest.fn(),
+      };
+
+      const repository = new MysqlImageRepository(mockPool);
+      const images = await repository.getAll();
+
+      expect(images).toEqual([mockImage]);
+    });
+  });
+
   describe('test getById', () => {
     it('should return undefined while there is no matching image', async () => {
       const mockPool = {

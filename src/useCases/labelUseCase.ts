@@ -3,6 +3,11 @@ import { NotFoundError } from '../errors/notFound';
 import { labelRepository } from '../infra/database';
 import { mapFromAddLabelModel, mapFromUpdateLabelModel, mapToGetLabelModel } from '../mappers/labelMappers';
 
+export const listLabels = async (): Promise<GetLabelModel[]> => {
+  const labels = await labelRepository.getAll();
+  return labels.map((label) => mapToGetLabelModel(label));
+};
+
 export const getLabel = async (labelId: number): Promise<GetLabelModel> => {
   const label = await labelRepository.getById(labelId);
 

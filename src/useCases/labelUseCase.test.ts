@@ -1,7 +1,7 @@
 import { NotFoundError } from '../errors/notFound';
 import { labelRepository } from '../infra/database';
 import { mapFromAddLabelModel, mapFromUpdateLabelModel } from '../mappers/labelMappers';
-import { addLabel, deleteLabel, getLabel, updateLabel } from './labelUseCase';
+import { addLabel, deleteLabel, getLabel, listLabels, updateLabel } from './labelUseCase';
 
 jest.mock('../infra/database');
 
@@ -13,6 +13,14 @@ describe('test labelUseCase', () => {
     label: 'foobar',
     statusCode: 'InUse',
   };
+
+  describe('test listLabels', () => {
+    it('should return getLabelModels', async () => {
+      mockedLabelRepository.getAll.mockResolvedValue([mockLabel]);
+      const labels = await listLabels();
+      expect(labels).toEqual([mockLabel]);
+    });
+  });
 
   describe('test getLabel', () => {
     it('should throw NotFoundError if labelRepository.getById is returning undefined', async () => {

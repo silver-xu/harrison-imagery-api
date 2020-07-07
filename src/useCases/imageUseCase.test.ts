@@ -3,7 +3,7 @@ import { BadRequestError } from '../errors/badRequest';
 import { NotFoundError } from '../errors/notFound';
 import { imageRepository } from '../infra/database';
 import { mapFromAddImageModel, mapFromUpdateImageModel } from '../mappers/imageMappers';
-import { addImage, deleteImage, getImage, searchImages, updateImage } from './imageUseCase';
+import { addImage, deleteImage, getImage, listImages, searchImages, updateImage } from './imageUseCase';
 
 jest.mock('../infra/database');
 
@@ -24,6 +24,14 @@ describe('test imageUseCase', () => {
     height: 100,
     statusCode: ImageStatusCodes.Created,
   };
+
+  describe('test listImages', () => {
+    it('should return getImageModels', async () => {
+      mockedImageRepository.getAll.mockResolvedValue([mockImage]);
+      const images = await listImages();
+      expect(images).toEqual([mockImage]);
+    });
+  });
 
   describe('test getImage', () => {
     it('should throw NotFoundError if imageRepository.getById is returning undefined', async () => {

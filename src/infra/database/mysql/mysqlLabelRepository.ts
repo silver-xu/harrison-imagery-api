@@ -5,6 +5,18 @@ import { LabelRepository } from '../labelRepository';
 import { BaseMysqlRepository } from './baseMysqlRepository';
 
 export class MysqlLabelRepository extends BaseMysqlRepository implements LabelRepository {
+  async getAll(): Promise<Label[]> {
+    const [rows] = (await this.pool.query(
+      "SELECT label_id, label, status_code FROM labels WHERE status_code <> 'Deleted'",
+    )) as RowDataPacket[];
+
+    return rows.map((row) => ({
+      labelId: row.label_id,
+      label: row.label,
+      statusCode: row.status_code,
+    }));
+  }
+
   async getById(labelId: number): Promise<Label> {
     const [
       rows,

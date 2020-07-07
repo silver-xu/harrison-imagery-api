@@ -1,5 +1,6 @@
 import { Express } from 'express';
 
+import { listLabelsController } from '../controllers/image/listLabelsController';
 import {
   addLabelController,
   deleteLabelController,
@@ -42,6 +43,37 @@ export const addLabelRoutes = (app: Express): Express => {
    */
   app.get('/v1/label/:id', (req, res, next) => {
     getLabelController(req, res, next);
+  });
+
+  /**
+   * @swagger
+   * /v1/labels:
+   *    get:
+   *      tags:
+   *        - Label
+   *      summary: Returns all labels from Harrison.ai system
+   *      consumes:
+   *        - application/json
+   *      parameters:
+   *        - name: x-auth
+   *          description: authorization header
+   *          in: header
+   *          required: true
+   *          type: string
+   *      responses:
+   *        200:
+   *          description: Deserialized label object
+   *        400:
+   *          description: Unauthorized access
+   *        401:
+   *          description: Bad Request
+   *        404:
+   *          description: Label does not exist
+   *        500:
+   *          description: Internal Error
+   */
+  app.get('/v1/labels', (req, res, next) => {
+    listLabelsController(req, res, next);
   });
 
   /**

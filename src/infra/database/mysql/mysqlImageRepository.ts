@@ -6,6 +6,20 @@ import { ImageRepository } from '../imageRepository';
 import { BaseMysqlRepository } from './baseMysqlRepository';
 
 export class MysqlImageRepository extends BaseMysqlRepository implements ImageRepository {
+  async getAll(): Promise<Image[]> {
+    const [rows] = (await this.pool.query(
+      "SELECT image_id, image_path, width, height, status_code FROM images WHERE status_code <> 'Deleted'",
+    )) as RowDataPacket[];
+
+    return rows.map((row) => ({
+      imageId: row.image_id,
+      imagePath: row.image_path,
+      width: row.width,
+      height: row.height,
+      statusCode: row.status_code,
+    }));
+  }
+
   async getById(imageId: number): Promise<Image | undefined> {
     const [
       rows,

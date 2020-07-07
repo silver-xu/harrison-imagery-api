@@ -13,6 +13,20 @@ describe('test mysqlImageRepository', () => {
     statusCode: 'InUse',
   };
 
+  describe('test getAll', () => {
+    it('should return images', async () => {
+      const mockPool = {
+        query: jest.fn().mockResolvedValue([[mockLabelRaw]]),
+        execute: jest.fn(),
+      };
+
+      const repository = new MysqlLabelRepository(mockPool);
+      const labels = await repository.getAll();
+
+      expect(labels).toEqual([mockLabel]);
+    });
+  });
+
   describe('test getById', () => {
     it('should return undefined while there is no matching label', async () => {
       const mockPool = {
