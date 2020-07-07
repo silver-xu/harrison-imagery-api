@@ -1,6 +1,6 @@
 # Harrison.AI Imagery API [![Build Status](https://travis-ci.org/silver-xu/harrison-imagery-api.svg?branch=master)](https://travis-ci.org/silver-xu/harrison-imagery-api) [![codecov](https://codecov.io/gh/silver-xu/harrison-imagery-api/branch/master/graph/badge.svg)](https://codecov.io/gh/silver-xu/harrison-imagery-api)
 
-> Harrison.AI Imagery API provides the interface to manage images, labels and image labelling to other components in the Harrison.AI ecosystem.
+> Harrison.AI Imagery API provides the interface to manage clinical images, disease labels and image labelling to other components in the Harrison.AI ecosystem.
 
 ## Pre-requisites
 
