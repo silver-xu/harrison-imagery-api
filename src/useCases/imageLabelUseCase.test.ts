@@ -30,7 +30,6 @@ describe('test imageLabelUseCase', () => {
   };
 
   const mockAddImageLabelModel = {
-    imageLabelId: 1,
     imageId: 1,
     labelId: 1,
     x: 0,

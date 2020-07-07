@@ -47,8 +47,8 @@ export const addImageLabel = async (addImageLabelModel: AddImageLabelModel): Pro
   const imageLabelId = await imageLabelRepository.add(imageLabel);
 
   return {
-    imageLabelId,
     ...imageLabel,
+    imageLabelId,
   };
 };
 
