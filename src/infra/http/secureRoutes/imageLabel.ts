@@ -7,7 +7,7 @@ import { getLabelledImagesController } from '../controllers/imageLabel/getLabell
 export const addImageLabelRoutes = (app: Express): Express => {
   /**
    * @swagger
-   * /v1/image/{id}/label:
+   * /v1/image/{id}/labels:
    *    get:
    *      tags:
    *        - Image Label
@@ -37,13 +37,13 @@ export const addImageLabelRoutes = (app: Express): Express => {
    *        500:
    *          description: Internal Error
    */
-  app.get('/v1/image/:id/label', (req, res, next) => {
+  app.get('/v1/image/:id/labels', (req, res, next) => {
     getImageLabellingController(req, res, next);
   });
 
   /**
    * @swagger
-   * /v1/label/{id}/image:
+   * /v1/label/{id}/images:
    *    get:
    *      tags:
    *        - Image Label
@@ -73,7 +73,7 @@ export const addImageLabelRoutes = (app: Express): Express => {
    *        500:
    *          description: Internal Error
    */
-  app.get('/v1/label/:id/image', (req, res, next) => {
+  app.get('/v1/label/:id/images', (req, res, next) => {
     getLabelledImagesController(req, res, next);
   });
 
