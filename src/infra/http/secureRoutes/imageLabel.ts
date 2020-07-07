@@ -126,7 +126,7 @@ export const addImageLabelRoutes = (app: Express): Express => {
 
   /**
    * @swagger
-   * /v1/label-label/{id}:
+   * /v1/image-label/{id}:
    *    delete:
    *      tags:
    *        - Image Label
