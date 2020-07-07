@@ -57,7 +57,7 @@ export const deleteImage = async (imageId: number): Promise<void> => {
   await imageRepository.delete(imageId);
 };
 
-export const updateImage = async (imageId: number, imageModel: UpdateImageModel): Promise<void> => {
+export const updateImage = async (imageId: number, imageModel: UpdateImageModel): Promise<GetImageModel> => {
   const image = await imageRepository.getById(imageId);
 
   if (!image) {
@@ -66,4 +66,9 @@ export const updateImage = async (imageId: number, imageModel: UpdateImageModel)
 
   const updatedImage = mapFromUpdateImageModel(imageId, imageModel);
   await imageRepository.update(updatedImage);
+
+  return {
+    ...imageModel,
+    imageId,
+  };
 };

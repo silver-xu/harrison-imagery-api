@@ -2,7 +2,7 @@ import { ImageStatusCodes } from '../domains/image';
 import { BadRequestError } from '../errors/badRequest';
 import { NotFoundError } from '../errors/notFound';
 import { imageRepository } from '../infra/database';
-import { mapFromAddImageModel, mapFromUpdateImageModel } from '../mappers/imageMappers';
+import { mapFromAddImageModel, mapFromUpdateImageModel, mapToGetImageModel } from '../mappers/imageMappers';
 import { addImage, deleteImage, getImage, listImages, searchImages, updateImage } from './imageUseCase';
 
 jest.mock('../infra/database');
@@ -24,6 +24,8 @@ describe('test imageUseCase', () => {
     height: 100,
     statusCode: ImageStatusCodes.Created,
   };
+
+  const mockGetImageModel = mapToGetImageModel(mapFromUpdateImageModel(1, mockUpdateImageModel));
 
   describe('test listImages', () => {
     it('should return getImageModels', async () => {
@@ -105,12 +107,12 @@ describe('test imageUseCase', () => {
       await expect(updateImage(1, mockUpdateImageModel)).rejects.toEqual(new NotFoundError('Image was not found'));
     });
 
-    it('should call imageRepository.delete if imageRepository.getById is returning image', async () => {
+    it('should call imageRepository.update if imageRepository.getById is returning image', async () => {
       mockedImageRepository.getById.mockResolvedValue(mockImage);
 
-      await updateImage(1, mockUpdateImageModel);
-
+      const result = await updateImage(1, mockUpdateImageModel);
       expect(mockedImageRepository.update).toHaveBeenLastCalledWith(mapFromUpdateImageModel(1, mockUpdateImageModel));
+      expect(result).toEqual(mockGetImageModel);
     });
   });
 });

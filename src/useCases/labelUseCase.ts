@@ -39,7 +39,7 @@ export const deleteLabel = async (labelId: number): Promise<void> => {
   await labelRepository.delete(labelId);
 };
 
-export const updateLabel = async (labelId: number, labelModel: UpdateLabelModel): Promise<void> => {
+export const updateLabel = async (labelId: number, labelModel: UpdateLabelModel): Promise<GetLabelModel> => {
   const label = await labelRepository.getById(labelId);
 
   if (!label) {
@@ -48,4 +48,6 @@ export const updateLabel = async (labelId: number, labelModel: UpdateLabelModel)
 
   const updatedLabel = mapFromUpdateLabelModel(labelId, labelModel);
   await labelRepository.update(updatedLabel);
+
+  return { ...labelModel, labelId };
 };

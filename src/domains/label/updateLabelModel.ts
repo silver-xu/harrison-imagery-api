@@ -1,4 +1,6 @@
+import { LabelStatusCodes } from './labelStatusCodes';
+
 export interface UpdateLabelModel {
   label: string;
-  statusCode: string;
+  statusCode: LabelStatusCodes;
 }

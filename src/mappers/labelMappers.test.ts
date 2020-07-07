@@ -1,10 +1,11 @@
+import { LabelStatusCodes } from '../domains/label';
 import { mapFromAddLabelModel, mapFromUpdateLabelModel, mapToGetLabelModel } from './labelMappers';
 
 describe('test labelMappers', () => {
   const mockLabel = {
     labelId: 1,
     label: 'foobar',
-    statusCode: 'InUse',
+    statusCode: LabelStatusCodes.InUse,
   };
 
   describe('test mapToGetLabelModel', () => {

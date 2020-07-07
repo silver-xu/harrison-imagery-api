@@ -212,7 +212,7 @@ export const addImageRoutes = (app: Express): Express => {
    *          type: string
    *      responses:
    *        200:
-   *          description: Ok
+   *          description: Updated Image
    *        400:
    *          description: Unauthorized access
    *        401:

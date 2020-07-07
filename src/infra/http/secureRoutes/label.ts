@@ -148,7 +148,7 @@ export const addLabelRoutes = (app: Express): Express => {
    *          type: string
    *      responses:
    *        200:
-   *          description: Ok
+   *          description: Updated label
    *        400:
    *          description: Unauthorized access
    *        401:

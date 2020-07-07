@@ -32,9 +32,9 @@ export const updateImageController = async (req: Request, res: Response, next: N
       throw new BadRequestError('Request body is malformed');
     }
 
-    await updateImage(imageId, updateImageModel);
+    const result = await updateImage(imageId, updateImageModel);
 
-    res.send('Ok');
+    res.send(result);
   } catch (error) {
     next(error);
   }

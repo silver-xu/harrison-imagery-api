@@ -17,8 +17,9 @@ export const mapFromAddImageModel = (addImageModel: AddImageModel): Image => ({
 });
 
 export const mapFromUpdateImageModel = (imageId: number, updateImageModel: UpdateImageModel): Image => ({
-  imageId,
   ...updateImageModel,
+  imageId,
+  statusCode: updateImageModel.statusCode.toString(),
 });
 
 export const mapFromImageSearchCriteriaModel = (

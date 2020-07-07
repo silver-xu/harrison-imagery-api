@@ -1,16 +1,20 @@
 import { Request, Response } from 'express';
 
+import { LabelStatusCodes } from '../../../../domains/label';
 import { BadRequestError } from '../../../../errors/badRequest';
+import { mapFromUpdateLabelModel, mapToGetLabelModel } from '../../../../mappers/labelMappers';
 import * as labelUseCase from '../../../../useCases/labelUseCase';
 import { updateLabelController } from './updateLabelController';
 
 jest.mock('../../../../useCases/labelUseCase');
 
 describe('test updateLabelController', () => {
+  const mockedLabelUseCase = labelUseCase as jest.Mocked<typeof labelUseCase>;
   const mockUpdateLabelModel = {
     label: 'foo',
-    statusCode: 'InUse',
+    statusCode: LabelStatusCodes.InUse,
   };
+  const mockGetLabelModel = mapToGetLabelModel(mapFromUpdateLabelModel(1, mockUpdateLabelModel));
 
   describe('with invalid request body', () => {
     [
@@ -85,9 +89,10 @@ describe('test updateLabelController', () => {
       send: jest.fn() as unknown,
     } as Response;
     const next = jest.fn();
+    mockedLabelUseCase.updateLabel.mockResolvedValue(mockGetLabelModel);
 
     await updateLabelController(mockRequest, mockResponse, next);
     expect(labelUseCase.updateLabel).toHaveBeenLastCalledWith(1, mockUpdateLabelModel);
-    expect(mockResponse.send).toHaveBeenLastCalledWith('Ok');
+    expect(mockResponse.send).toHaveBeenLastCalledWith(mockGetLabelModel);
   });
 });

@@ -14,6 +14,7 @@ export const mapFromAddLabelModel = (addLabelModel: AddLabelModel): Label => ({
 });
 
 export const mapFromUpdateLabelModel = (labelId: number, updateLabelModel: UpdateLabelModel): Label => ({
-  labelId,
   ...updateLabelModel,
+  labelId,
+  statusCode: updateLabelModel.statusCode.toString(),
 });

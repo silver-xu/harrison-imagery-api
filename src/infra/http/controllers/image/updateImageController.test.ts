@@ -1,18 +1,22 @@
 import { Request, Response } from 'express';
 
+import { ImageStatusCodes } from '../../../../domains/image';
 import { BadRequestError } from '../../../../errors/badRequest';
+import { mapFromUpdateImageModel, mapToGetImageModel } from '../../../../mappers/imageMappers';
 import * as imageUseCase from '../../../../useCases/imageUseCase';
 import { updateImageController } from './updateImageController';
 
 jest.mock('../../../../useCases/imageUseCase');
 
 describe('test updateImageController', () => {
+  const mockedImageUseCase = imageUseCase as jest.Mocked<typeof imageUseCase>;
   const mockUpdateImageModel = {
     imagePath: 'http://example.com',
     width: 100,
     height: 100,
-    statusCode: 'Created',
+    statusCode: ImageStatusCodes.Created,
   };
+  const mockGetImageModel = mapToGetImageModel(mapFromUpdateImageModel(1, mockUpdateImageModel));
 
   describe('with invalid request body', () => {
     [
@@ -129,9 +133,10 @@ describe('test updateImageController', () => {
       send: jest.fn() as unknown,
     } as Response;
     const next = jest.fn();
+    mockedImageUseCase.updateImage.mockResolvedValue(mockGetImageModel);
 
     await updateImageController(mockRequest, mockResponse, next);
     expect(imageUseCase.updateImage).toHaveBeenLastCalledWith(1, mockUpdateImageModel);
-    expect(mockResponse.send).toHaveBeenLastCalledWith('Ok');
+    expect(mockResponse.send).toHaveBeenLastCalledWith(mockGetImageModel);
   });
 });
